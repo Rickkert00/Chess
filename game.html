@@ -26,38 +26,45 @@
         <main>
         <section id="ChessPiece">
 
-            <section id="Pawn"class="ChessPiece">
-                <div id="1" class="Pawn">1</div>
-                <div id="2" class="Pawn">2</div>
-                <div id="3" class="Pawn">3</div>
-                <div id="4" class="Pawn">4</div>
-                <div id="5" class="Pawn">5</div>
-                <div id="6" class="Pawn">6</div>
-                <div id="7" class="Pawn">7</div>
-                <div id="8" class="Pawn">8</div>
+            .pawn div {
+                color: red;
+            }
+
+            <section id="Pawn">
+                <div id="P1" class="pawn">1</div>
+                <div id="P2" class="Pawn">2</div>
+                <div id="P3" class="Pawn">3</div>
+                <div id="P4" class="Pawn">4</div>
+                <div id="P5" class="Pawn">5</div>
+                <div id="P6" class="Pawn">6</div>
+                <div id="P7" class="Pawn">7</div>
+                <div id="P8" class="Pawn">8</div>
             </section>
 
-            <section id="Rook"class="ChessPiece">
-               <div id="1" class="Rook">1</div>
-               <div id="2" class="Rook">2</div>
+            <section id="Rook">
+               <div id="R1" class="Rook">1</div>
+               <div id="R2" class="Rook">2</div>
             </section>
 
-            <section id="Knight" class="ChessPiece">
-                <div id="1" class="Knight">2</div>
-                <div id="2" class="Knight">2</div>
+            <section id="Knight">
+                <div id="K1" class="Knight">2</div>
+                <div id="K2" class="Knight">2</div>
             </section>
 
-            <section id="Bishop" class="ChessPiece">
-                <div id="1" class="Bishop">2</div>
-                <div id="2" class="Bishop">2</div>
+            <section id="Bishop">
+                <div id="B1" class="Bishop">2</div>
+                <div id="B2" class="Bishop">2</div>
             </section>
 
-            <div id="Queen" class="ChessPiece">Queen</div>
-            <div id="King" class="ChessPiece">King</div>
+            <div id="Queen">Queen</div>
+            <div id="King">King</div>
         </section>
 
         <section id="GameBoard">
             <div id="board" class="GameBoard">Gameboard</div>
+            <div id="s1"></div>
+            <!--Will create rest squares in Javascript-->
+            <div id="s8"></div>
         </section>
 
         <section id="Addons">
