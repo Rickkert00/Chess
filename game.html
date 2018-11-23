@@ -3,6 +3,7 @@
         is an almost exact copy (apart from template tags).
 -->
 <html>
+        <link type="text/css" rel="stylesheet" href="style.css" /> 
     <head>
         <title>Chess Game In Progres..........</title>
     </head>
@@ -10,19 +11,21 @@
 
         <header>
 
-        <section id="topright">
+        <section id="topleft">
             <img src="king.jpg">
             <h1>Chess</h1>
         </section>
-        <section id="topleft">Created by: Jahson and Rick</section>
-        <img src="tudelft.png">
-        <section id="blackbar"></section>
+        <section id="topmiddle">
+                <h1>Time</h1>
+            </section>
+        <section id="topright">Created by: Jahson and Rick
+        <img src="tudelft.png"></section>
+     
 
-        <section id="middle">
-            <div id=Time class="middle">Time</div>
-        </section>
+        
+       
          </header>
-
+         <section id="blackbar"></section>
         <main>
         <section id="ChessPiece">
 
@@ -58,7 +61,10 @@
         </section>
 
         <section id="GameBoard">
-            <div id="board" class="GameBoard">Gameboard</div>
+            <div id="board" class="GameBoard">Gameboard
+
+            </div>
+            
             <div id="s1"></div>
             <!--Will create rest squares in Javascript-->
             <div id="s8"></div>
@@ -75,4 +81,9 @@
         </section>
         </main>
     </body>
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script><!-- integrity and crossorigin are to ensure that recources on third party servers have not been tampered with-->
+    <div class="GameBoard"><script src="chessboard.js"></script></div>
 </html>
