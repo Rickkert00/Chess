@@ -84,3 +84,6 @@ header {
 main {
     position: relative;
 }
+#ChessPiece{
+    font-size: 50px;
+}
