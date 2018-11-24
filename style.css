@@ -4,34 +4,11 @@ html {
     margin: 0px; 
   }
 body {
-    background-color: #fff;
+    background-color: rgb(255, 255, 255);
     margin: 0px;
     height: 100%;
 }
-  table { 
-    border-collapse: collapse; 
-    border-spacing: 0; 
-  }
-  
-  #board { 
-    padding: 0px; 
-    margin: 0 auto; 
-    text-align: center;
-  }
-  
-  #board tr td { 
-    width: 60px; 
-    height: 60px; 
 
-  }
-  
-  #board tr:nth-child(2n) td:nth-child(2n+1) { 
-    background: #9f9f9f; 
-  }
-  
-  #board tr:nth-child(2n+1) td:nth-child(2n) { 
-    background: #9f9f9f; 
-  }
 
   #topleft {
       width: 100%;
@@ -86,4 +63,40 @@ main {
 }
 #ChessPiece{
     font-size: 50px;
+    position: relative;
 }
+
+#GameBoard {
+    margin: auto;
+    width: 480px;
+    height: 480px;
+    border: solid 4 px #333;
+    position: center;
+    font-size: 50px;
+    text-align: center;
+
+    
+  }
+  
+  #GameBoard .row {
+    margin: 0;
+  }
+  
+  .square {
+    height: 60px;
+    width: 60px;
+    background: #efefef;
+    float: left;
+  }
+  
+  .square.white {
+    background: #fff;
+  }
+  
+  .square.black {
+    background: #333;
+  }
+
+  #D5{
+      background: rgb(126, 221, 126);
+  }
