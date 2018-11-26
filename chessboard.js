@@ -71,7 +71,7 @@ var buildboard = function () {
                 class: "square",
                 id: String.fromCharCode(64 + j) + i,
                 content: piece,
-                onclick: "playAudio()",
+                onmousedown: "playAudio()",
             });
 
             //Add white or Black class to every second div;
@@ -155,12 +155,7 @@ var chessPieces = function () {
 }
 
 
-//Defining variable based on unique ID
-
 var audio1 = document.getElementById("audioID");
-
-//Example of an HTML Audio/Video Method
-
 function playAudio() {
   audio1.play();
 }
