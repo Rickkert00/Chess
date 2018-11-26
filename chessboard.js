@@ -7,7 +7,7 @@ var buildboard = function () {
     //Loop that creates Rows
     for (var i = 1; i <= 8; i++) {
         var divRow = $("<div>", {
-            class: "row"
+            class: "row",
         });
         //Loop that creates squares and Gives every square an ID based on its position, it also assigns the default locations of the pieces to the right tiles
         for (var j = 1; j <= 8; j++) {
@@ -71,6 +71,7 @@ var buildboard = function () {
                 class: "square",
                 id: String.fromCharCode(64 + j) + i,
                 content: piece,
+                onclick: "playAudio()",
             });
 
             //Add white or Black class to every second div;
@@ -153,6 +154,16 @@ var chessPieces = function () {
     console.log("Adding pawn");
 }
 
+
+//Defining variable based on unique ID
+
+var audio1 = document.getElementById("audioID");
+
+//Example of an HTML Audio/Video Method
+
+function playAudio() {
+  audio1.play();
+}
 
 //Main Method:
 buildboard();
