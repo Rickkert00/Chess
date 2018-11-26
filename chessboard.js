@@ -45,8 +45,6 @@ console.log("Adding pawn");
 }
 
 
-
-
 //Main Method:
 buildboard();
 initialplacement();
