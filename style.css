@@ -96,18 +96,18 @@ main {
 
   }
   .square.white:hover {
-      font-size: 55px;
+      font-size: 55px !important;
       vertical-align: middle;
   }
   .square.black:hover {
-    font-size: 55px;
+    font-size: 55px !important;
 }
 .square.white:active {
-    font-size: 55px;
+    font-size: 55px !important;
     background: lightgreen;
 }
 .square.black:active {
-  font-size: 55px;
+  font-size: 55px !important;
   background: lightgreen;
 }
   .square.white {
@@ -117,3 +117,4 @@ main {
   .square.black {
     background: gray;
   }
+  
