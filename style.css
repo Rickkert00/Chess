@@ -96,10 +96,19 @@ main {
 
   }
   .square.white:hover {
-      background: blue;
+      font-size: 55px;
+      vertical-align: middle;
   }
   .square.black:hover {
-    background: blue;
+    font-size: 55px;
+}
+.square.white:active {
+    font-size: 55px;
+    background: lightgreen;
+}
+.square.black:active {
+  font-size: 55px;
+  background: lightgreen;
 }
   .square.white {
     background: #fff;
@@ -108,7 +117,3 @@ main {
   .square.black {
     background: gray;
   }
-
-#A8{
-    background: green;
-}
