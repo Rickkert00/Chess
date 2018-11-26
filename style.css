@@ -89,6 +89,7 @@ main {
   }
   
   .square {
+    cursor: default;
     height: 60px;
     width: 60px;
     background: #efefef;
