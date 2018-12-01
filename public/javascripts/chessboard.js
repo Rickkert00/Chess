@@ -1,6 +1,7 @@
 //the creation of the chessboard tiles with each tile having its own unique id
 //Row1 Rook;Knight;Bishop;Queen;King;Bishop;Knight;Rook
 //Row2 Pawns
+//hi
 const BQueen = "&#9819;";
 //This function creates a board
 var buildboard = function () {
