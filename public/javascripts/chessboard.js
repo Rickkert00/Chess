@@ -5,7 +5,7 @@ const BQueen = "&#9819;";
 //This function creates a board
 var buildboard = function () {
     //Loop that creates Rows
-    for (var i = 1; i <= 8; i++) {
+    for (var i = 8; i > 0; i--) {
         var divRow = $("<div>", {
             class: "row",
         });
@@ -71,7 +71,7 @@ var buildboard = function () {
                 class: "square",
                 id: String.fromCharCode(64 + j) + i,
                 content: piece,
-                onmousedown: "playAudio()",
+                onmousedown: "playAudio()", 
             });
 
             //Add white or Black class to every second div;
@@ -160,6 +160,31 @@ function playAudio() {
   audio1.play();
 }
 
+var select = function() {
+    var origin;
+    var clicked = false;
+    var target1;
+    $(".square").click(function(event) {
+        if (clicked === false){
+        document.getElementById(event.target.id).style.backgroundColor = "red"; 
+        origin = document.getElementById(event.target.id);
+        console.log(document.getElementById(event.target.id).getAttribute('id'));
+        clicked = true;
+        }
+        else {
+            target1 = document.getElementById(event.target.id);
+            console.log(target1);
+            console.log(origin.getAttribute('content'));
+            $("#" + target1).setAttribute('content', $("#" + origin).getAttribute('content'));
+            $("#" + origin).setAttribute('content', null);
+            $("#" + target1.getAttribute('id')).appendTo("[content=BR2]");
+        }
+     
+    });
+    
+}
 //Main Method:
 buildboard();
 initialplacement();
+select();
+console.log(document.getElementById("A1").innerHTML);
