@@ -121,7 +121,7 @@ var initialplacement = function () {
     }
 }
 
-
+//Audio Function on click.
 var audio1 = document.getElementById("audioID");
 function playAudio() {
     audio1.play();
@@ -147,21 +147,22 @@ var MoveWPawn = function (id) {
     if (((!(parseInt(id.charAt(1)) - 1 < 0)))) {//this checks whether the left diagonal tile is not out of board range
         if (board[parseInt(id.charAt(0)) + 1][parseInt((id.charAt(1)) - 1)] !== 0) {//this checks whether there is a piece or not on the left diagonal tile from the selected piece
             if (board[parseInt(id.charAt(0)) + 1][parseInt((id.charAt(1)) - 1)].charAt(0) !== "W") {//this checks whether the piece is white or black
-                document.getElementById((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)) - 1)).style.background = "green";//sets the tile background to green if the piece is black , it indicates that is is a legal move
+                document.getElementById((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)) - 1)).style.boxShadow = "0px 0px 0px 4px lightgreen inset";//sets the tile background to green if the piece is black , it indicates that is is a legal move
             }
         }
     }
+
     if (!(parseInt(id.charAt(1)) + 1 > 7)) {//checks whether the right diagonal tile is not out of board range
         if (board[parseInt(id.charAt(0)) + 1][parseInt(id.charAt(1)) + 1] !== 0) {//checks whether the right diagonal tile is empty or not
             if (board[parseInt(id.charAt(0))+1][parseInt(id.charAt(1))+1].charAt(0) !== "W") {//checks whether it is black or white
-                document.getElementById((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)) + 1)).style.background = "green";//if black then mark it as a possible move
+                document.getElementById((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)) + 1)).style.boxShadow = "0px 0px 0px 4px lightgreen inset";//if black then mark it as a possible move
             }
         }
     }
 
     if (!((parseInt(id.charAt(0)) + 1) > 7)) {//check whether tile straight ahead is out of board range
         if (board[parseInt(id.charAt(0)) + 1][parseInt((id.charAt(1)))] === 0){//check whether the tile ahead is emtpy or not
-        document.getElementById((parseInt(id.charAt(0)) + 1) + "" + id.charAt(1)).style.background = "green";//if empty then mark possible move
+        document.getElementById((parseInt(id.charAt(0)) + 1) + "" + id.charAt(1)).style.boxShadow = "0px 0px 0px 4px lightgreen inset";//if empty then mark possible move
     }
     }
 }
