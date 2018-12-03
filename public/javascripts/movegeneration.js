@@ -5,10 +5,10 @@ var select = function () {
         if (clicked === false) {
             parser = new DOMParser;//needed to parse the unicode to actual images so the comparison in the cases goes right
             switch (document.getElementById(event.target.id).innerHTML) {//get the content of the clicked tile
-                case parser.parseFromString(WPawn, 'text/html').body.textContent: MoveWPawn(event.target.id);//this converts the const to an image so the comparison goes right
+                case parser.parseFromString(WPawn, 'text/html').body.textContent: MovePawn(event.target.id, true);//this converts the const to an image so the comparison goes right
                     clicked = true;
                     break;
-                case BPawn: MoveBPawn();
+                case parser.parseFromString(BPawn, 'text/html').body.textContent: MovePawn(event.target.id, false);//this converts the const to an image so the comparison goes right
                     clicked = true;
                     break;
                 case parser.parseFromString(WRook, 'text/html').body.textContent: MoveRook(event.target.id, true);
@@ -84,46 +84,108 @@ var globalOnClick = function (event, moves, id, onClick, piece) {
 }
 
 //this function computes all possible moves for the white pawn that is currently selected via a click
-var MoveWPawn = function (id) {
+var MovePawn = function (id, isWhite) {
     var moves = [];
-    if (((!(parseInt(id.charAt(1)) - 1 < 0)))) {//this checks whether the left diagonal tile is not out of board range
 
-        if (board[parseInt(id.charAt(0)) + 1][parseInt((id.charAt(1)) - 1)] !== 0) {//this checks whether there is a piece or not on the left diagonal tile from the selected piece
-            //fix white checking
-            if (BPieces.includes(board[parseInt(id.charAt(0)) + 1][parseInt((id.charAt(1)) - 1)])) {//this checks whether the piece is white or black
-                document.getElementById((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)) - 1)).style.background = "lightgreen";//sets the tile background to green if the piece is black , it indicates that is is a legal move
-                moves[moves.length] = ((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)) - 1));
+    var pawngen = function (enemyArray) {
+        if (isWhite) {
+            if (((!(parseInt(id.charAt(1)) - 1 < 0)))) {//this checks whether the left diagonal tile is not out of board range
+
+                if (board[parseInt(id.charAt(0)) + 1][parseInt((id.charAt(1)) - 1)] !== 0) {//this checks whether there is a piece or not on the left diagonal tile from the selected piece
+                    //fix white checking
+                    if (enemyArray.includes(board[parseInt(id.charAt(0)) + 1][parseInt((id.charAt(1)) - 1)])) {//this checks whether the piece is white or black
+                        document.getElementById((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)) - 1)).style.background = "lightgreen";//sets the tile background to green if the piece is black , it indicates that is is a legal move
+                        moves[moves.length] = ((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)) - 1));
+                    }
+    
+                }
             }
-
-        }
-    }
-    if (!(parseInt(id.charAt(1)) + 1 > 7)) {//checks whether the right diagonal tile is not out of board range
-        if (board[parseInt(id.charAt(0)) + 1][parseInt(id.charAt(1)) + 1] !== 0) {//checks whether the right diagonal tile is empty or not  
-
-            if (BPieces.includes(board[parseInt(id.charAt(0)) + 1][parseInt(id.charAt(1)) + 1])) {//checks whether it is black or white
-                document.getElementById((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)) + 1)).style.background = "lightgreen";//if black then mark it as a possible move
-                moves[moves.length] = ((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)) + 1));
-            }
-        }
-    }
-    if (!((parseInt(id.charAt(0)) + 1) > 7)) {//check whether tile straight ahead is out of board range
-        if (board[parseInt(id.charAt(0)) + 1][parseInt((id.charAt(1)))] === 0) {//check whether the tile ahead is emtpy or not
-            document.getElementById((parseInt(id.charAt(0)) + 1) + "" + id.charAt(1)).style.background = "lightgreen";//if empty then mark possible move
-            moves[moves.length] = ((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1))));
-            if (parseInt(id.charAt(0)) === 1) {//check whether the pawn is still in the default row to check for double tile move
-                if (board[parseInt(id.charAt(0)) + 2][parseInt((id.charAt(1)))] === 0) {//check whether the tile 2 rows above is empty or not
-                    document.getElementById((parseInt(id.charAt(0)) + 2) + "" + id.charAt(1)).style.background = "lightgreen";//if empty then mark possible move
-                    moves[moves.length] = ((parseInt(id.charAt(0)) + 2) + "" + (parseInt(id.charAt(1))));
+            if (!(parseInt(id.charAt(1)) + 1 > 7)) {//checks whether the right diagonal tile is not out of board range
+                if (board[parseInt(id.charAt(0)) + 1][parseInt(id.charAt(1)) + 1] !== 0) {//checks whether the right diagonal tile is empty or not  
+    
+                    if (enemyArray.includes(board[parseInt(id.charAt(0)) + 1][parseInt(id.charAt(1)) + 1])) {//checks whether it is black or white
+                        document.getElementById((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)) + 1)).style.background = "lightgreen";//if black then mark it as a possible move
+                        moves[moves.length] = ((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)) + 1));
+                    }
                 }
             }
 
+            if (!((parseInt(id.charAt(0)) + 1) > 7)) {//check whether tile straight ahead is out of board range
+                if (board[parseInt(id.charAt(0)) + 1][parseInt((id.charAt(1)))] === 0) {//check whether the tile ahead is emtpy or not
+                    document.getElementById((parseInt(id.charAt(0)) + 1) + "" + id.charAt(1)).style.background = "lightgreen";//if empty then mark possible move
+                    moves[moves.length] = ((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1))));
+                    if (parseInt(id.charAt(0)) === 1) {//check whether the pawn is still in the default row to check for double tile move
+                        if (board[parseInt(id.charAt(0)) + 2][parseInt((id.charAt(1)))] === 0) {//check whether the tile 2 rows above is empty or not
+                            document.getElementById((parseInt(id.charAt(0)) + 2) + "" + id.charAt(1)).style.background = "lightgreen";//if empty then mark possible move
+                            moves[moves.length] = ((parseInt(id.charAt(0)) + 2) + "" + (parseInt(id.charAt(1))));
+                        }
+                    }
+
+                }
+            }
         }
+        else {
+            if (((!(parseInt(id.charAt(1)) - 1 < 0)))) {//this checks whether the left diagonal tile is not out of board range
+
+                if (board[parseInt(id.charAt(0)) - 1][parseInt((id.charAt(1)) - 1)] !== 0) {//this checks whether there is a piece or not on the left diagonal tile from the selected piece
+                    //fix white checking
+                    if (enemyArray.includes(board[parseInt(id.charAt(0)) - 1][parseInt((id.charAt(1)) - 1)])) {//this checks whether the piece is white or black
+                        document.getElementById((parseInt(id.charAt(0)) - 1) + "" + (parseInt(id.charAt(1)) - 1)).style.background = "lightgreen";//sets the tile background to green if the piece is black , it indicates that is is a legal move
+                        moves[moves.length] = ((parseInt(id.charAt(0)) - 1) + "" + (parseInt(id.charAt(1)) - 1));
+                    }
+    
+                }
+            }
+            if (!(parseInt(id.charAt(1)) + 1 > 7)) {//checks whether the left diagonal tile is not out of board range
+                if (board[parseInt(id.charAt(0)) - 1][parseInt(id.charAt(1)) + 1] !== 0) {//checks whether the right diagonal tile is empty or not  
+    
+                    if (enemyArray.includes(board[parseInt(id.charAt(0)) - 1][parseInt(id.charAt(1)) + 1])) {//checks whether it is black or white
+                        document.getElementById((parseInt(id.charAt(0)) - 1) + "" + (parseInt(id.charAt(1)) + 1)).style.background = "lightgreen";//if black then mark it as a possible move
+                        moves[moves.length] = ((parseInt(id.charAt(0)) - 1) + "" + (parseInt(id.charAt(1)) + 1));
+                    }
+                }
+            }
+
+            if (!((parseInt(id.charAt(0)) - 1) > 7)) {//check whether tile straight ahead is out of board range
+                if (board[parseInt(id.charAt(0)) - 1][parseInt((id.charAt(1)))] === 0) {//check whether the tile ahead is emtpy or not
+                    document.getElementById((parseInt(id.charAt(0)) - 1) + "" + id.charAt(1)).style.background = "lightgreen";//if empty then mark possible move
+                    moves[moves.length] = ((parseInt(id.charAt(0)) - 1) + "" + (parseInt(id.charAt(1))));
+                    if (parseInt(id.charAt(0)) === 6) {//check whether the pawn is still in the default row to check for double tile move
+                        if (board[parseInt(id.charAt(0)) - 2][parseInt((id.charAt(1)))] === 0) {//check whether the tile 2 rows above is empty or not
+                            document.getElementById((parseInt(id.charAt(0)) - 2) + "" + id.charAt(1)).style.background = "lightgreen";//if empty then mark possible move
+                            moves[moves.length] = ((parseInt(id.charAt(0)) - 2) + "" + (parseInt(id.charAt(1))));
+                        }
+                    }
+
+                }
+            }
+        }
+
+
     }
+
+    if (isWhite) {
+        pawngen(BPieces);
+        console.log("White Pawn")
+    }
+    else {
+        pawngen(WPieces);
+        console.log("Black Pawn")
+    }
+
     //this handles the clicking on a new square 
-    var onClick = function (event) {
-        globalOnClick(event, moves, id, onClick, WPawn);
+    if (isWhite) {
+        var onClick = function (event) {
+            globalOnClick(event, moves, id, onClick, WPawn);
+        }
+        $(".square").click(onClick);
     }
-    $(".square").click(onClick);
+    else {
+        var onClick = function (event) {
+            globalOnClick(event, moves, id, onClick, BPawn);
+        }
+        $(".square").click(onClick);
+    }
 }
 
 var MoveRook = function (id, isWhite) {
@@ -269,11 +331,11 @@ var MoveKnight = function (id, isWhite) {
     //Move gen depending if black or white
     if (isWhite) {
         knightgen(WPieces);
-        console.log("white");
+        console.log("White Knight");
     }
     else {
         knightgen(BPieces);
-        console.log("black");
+        console.log("Black Knight");
     }
 
     //this handles the clicking on a new square 
