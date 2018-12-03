@@ -130,9 +130,9 @@ var MoveRook = function (id, isWhite) {
     var moves = [];
     for (var i = 0; i <= 7; i++) {
         if (!(((parseInt(id.charAt(0))) + i) > 7)) {//checks whether the tile(s) above the rook are out of board range
-        
+
             if (board[parseInt(id.charAt(0)) + i][parseInt((id.charAt(1)))] === 0) {
-                
+
                 document.getElementById((parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)))).style.background = "lightgreen";
                 moves[moves.length] = (parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)));
             }
@@ -147,10 +147,10 @@ var MoveRook = function (id, isWhite) {
                     }
                 }
                 else {
-                        console.log("test4");
-                        document.getElementById((parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)))).style.background = "lightgreen";
-                        moves[moves.length] = (parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)));
-                        i = 7;                    
+                    console.log("test4");
+                    document.getElementById((parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)))).style.background = "lightgreen";
+                    moves[moves.length] = (parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)));
+                    i = 7;
                 }
 
             }
@@ -223,55 +223,73 @@ var MoveRook = function (id, isWhite) {
         }
     }
 
-        var onClick = function (event) {
-            globalOnClick(event, moves, id, onClick, WRook);
-        }
-        $(".square").click(onClick);
+    var onClick = function (event) {
+        globalOnClick(event, moves, id, onClick, WRook);
     }
+    $(".square").click(onClick);
+}
 
 
 
-    var MoveKnight = function (id, isWhite) {
-        var moves = [];
+var MoveKnight = function (id, isWhite) {
+    var moves = [];
 
+    //Move Generation
+    var knightgen = function (allyArray) {
         for (var i = 0; i <= 2; i += 2) {
+            //First If check if move out of bounds
             if (((parseInt(id.charAt(0))) + 2 >= 0) && (parseInt(id.charAt(0))) + 2 <= 7 && ((parseInt(id.charAt(1))) + (-1 + i) >= 0) && ((parseInt(id.charAt(1))) + (-1 + i) <= 7)) {
-                    console.log("ran");
+                //Second check for if square contains an ally
+                if (!(allyArray.includes(board[parseInt(id.charAt(0)) + 2][parseInt(id.charAt(1)) + (-1 + i)]))) {
                     document.getElementById((parseInt(id.charAt(0)) + 2) + "" + (parseInt(id.charAt(1)) + (-1 + i))).style.background = "lightgreen";
                     moves[moves.length] = ((parseInt(id.charAt(0)) + 2) + "" + (parseInt(id.charAt(1)) + (-1 + i)));
-                } else {
-                    console.log("ran2");
+                }
+            }
+            if (((parseInt(id.charAt(0))) - 2 >= 0) && (parseInt(id.charAt(0))) - 2 <= 7 && ((parseInt(id.charAt(1))) + (-1 + i) >= 0) && ((parseInt(id.charAt(1))) + (-1 + i) <= 7)) {
+                if (!(allyArray.includes(board[parseInt(id.charAt(0)) - 2][parseInt(id.charAt(1)) + (-1 + i)]))) {
                     document.getElementById((parseInt(id.charAt(0)) - 2) + "" + (parseInt(id.charAt(1)) + (-1 + i))).style.background = "lightgreen";
                     moves[moves.length] = ((parseInt(id.charAt(0)) - 2) + "" + (parseInt(id.charAt(1)) + (-1 + i)));
                 }
             }
-
             if (((parseInt(id.charAt(0)) + (-1 + i)) >= 0) && (parseInt(id.charAt(0)) + (-1 + i) <= 7) && (parseInt(id.charAt(1)) + 2 >= 0) && (parseInt(id.charAt(1)) + 2 <= 7)) {
-                document.getElementById((parseInt(id.charAt(0)) + (-1 + i)) + "" + (parseInt(id.charAt(1)) + 2)).style.background = "lightgreen";
-                moves[moves.length] = ((parseInt(id.charAt(0)) + (-1 + i)) + "" + (parseInt(id.charAt(1)) + 2));
+                if (!(allyArray.includes(board[parseInt(id.charAt(0)) + (-1 + i)][parseInt(id.charAt(1)) + 2]))) {
+                    document.getElementById((parseInt(id.charAt(0)) + (-1 + i)) + "" + (parseInt(id.charAt(1)) + 2)).style.background = "lightgreen";
+                    moves[moves.length] = ((parseInt(id.charAt(0)) + (-1 + i)) + "" + (parseInt(id.charAt(1)) + 2));
+                }
             }
-
-            if (((parseInt(id.charAt(0)) + (-1 + i)) >= 0) && (parseInt(id.charAt(0)) + (-1 + i) <= 7) && (parseInt(id.charAt(1)) + 2 >= 0) && (parseInt(id.charAt(1)) + 2 <= 7)) {
-                document.getElementById((parseInt(id.charAt(0)) + (-1 + i)) + "" + (parseInt(id.charAt(1)) - 2)).style.background = "lightgreen";
-                moves[moves.length] = ((parseInt(id.charAt(0)) + (-1 + i)) + "" + (parseInt(id.charAt(1)) - 2));
+            if (((parseInt(id.charAt(0))) + (-1 + i)) >= 0 && (parseInt(id.charAt(0))) + (-1 + i) <= 7 && (parseInt(id.charAt(1))) - 2 >= 0 && (parseInt(id.charAt(1))) - 2 <= 7) {
+                if (!(allyArray.includes(board[parseInt(id.charAt(0)) + (-1 + i)][parseInt(id.charAt(1)) - 2]))) {
+                    document.getElementById((parseInt(id.charAt(0)) + (-1 + i)) + "" + (parseInt(id.charAt(1)) - 2)).style.background = "lightgreen";
+                    moves[moves.length] = ((parseInt(id.charAt(0)) + (-1 + i)) + "" + (parseInt(id.charAt(1)) - 2));
+                }
             }
-
-        
-
-        //this handles the clicking on a new square 
-        if (isWhite) {
-            var onClick = function (event) {
-                globalOnClick(event, moves, id, onClick, WKnight);
-            }
-            $(".square").click(onClick);
-        }
-        else {
-            var onClick = function (event) {
-                globalOnClick(event, moves, id, onClick, BKnight);
-            }
-            $(".square").click(onClick);
         }
     }
 
-    //main method 2
-    select();
+    //Move gen depending if black or white
+    if (isWhite) {
+        knightgen(WPieces);
+        console.log("white");
+    }
+    else {
+        knightgen(BPieces);
+        console.log("black");
+    }
+
+    //this handles the clicking on a new square 
+    if (isWhite) {
+        var onClick = function (event) {
+            globalOnClick(event, moves, id, onClick, WKnight);
+        }
+        $(".square").click(onClick);
+    }
+    else {
+        var onClick = function (event) {
+            globalOnClick(event, moves, id, onClick, BKnight);
+        }
+        $(".square").click(onClick);
+    }
+}
+
+//main method 2
+select();
