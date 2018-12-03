@@ -128,56 +128,78 @@ var MoveWPawn = function (id) {
 
 var MoveRook = function (id, isWhite) {
     var moves = [];
-    for (var i = 0; i <= 7; i++) {
+    for (var i = 1; i <= 7; i++) {
         if (!(((parseInt(id.charAt(0))) + i) > 7)) {//checks whether the tile(s) above the rook are out of board range
         
             if (board[parseInt(id.charAt(0)) + i][parseInt((id.charAt(1)))] === 0) {
-                
                 document.getElementById((parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)))).style.background = "lightgreen";
                 moves[moves.length] = (parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)));
             }
             if (board[parseInt(id.charAt(0)) + i][parseInt((id.charAt(1)))] !== 0) {
                 if (isWhite) {
-                    console.log(parseInt(id.charAt(0)) + i);
                     if (BPieces.includes(board[parseInt(id.charAt(0)) + i][parseInt((id.charAt(1)))])) {
-                        console.log("test3");
                         document.getElementById((parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)))).style.background = "lightgreen";
                         moves[moves.length] = (parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)));
-                        i = 7;
+                        i = 8;
                     }
+                    else {
+                    i = 8; 
+                    }  
                 }
                 else {
-                        console.log("test4");
+                    if (WPieces.includes(board[parseInt(id.charAt(0)) + i][parseInt((id.charAt(1)))])) {
                         document.getElementById((parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)))).style.background = "lightgreen";
                         moves[moves.length] = (parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)));
-                        i = 7;                    
+                        i = 8;
+                    }
+                    else {
+                    i = 8; 
+                    }
                 }
+                }
+                                       
+            }
 
             }
-        }
-    }
+        
+    
 
 
-    for (var i = 0; i <= 7; i++) {
+    for (var i = 1; i <= 7; i++) {
         if (!(((parseInt(id.charAt(0))) - i) < 0)) {//checks whether the tile(s) below the rook are out of board range
-            if (board[parseInt(id.charAt(0)) + i][parseInt((id.charAt(1)))] === 0) {
+            if (board[parseInt(id.charAt(0)) - i][parseInt((id.charAt(1)))] === 0) {
                 document.getElementById((parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)))).style.background = "lightgreen";
                 moves[moves.length] = (parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)));
             }
             if (board[parseInt(id.charAt(0)) - i][parseInt((id.charAt(1)))] !== 0) {
+                console.log('HI');
                 if (isWhite) {
                     if (BPieces.includes(board[parseInt(id.charAt(0)) - i][parseInt((id.charAt(1)))])) {
                         document.getElementById((parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)))).style.background = "lightgreen";
                         moves[moves.length] = (parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)));
-                        i = 7;
+                        i = 8;
                     }
+                    else {
+                        i = 8;
+                    }
+                }
+                else {
+                    if (WPieces.includes(board[parseInt(id.charAt(0)) - i][parseInt((id.charAt(1)))])) {
+                        document.getElementById((parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)))).style.background = "lightgreen";
+                        moves[moves.length] = (parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)));
+                        i = 8;
+                    }
+                    else {
+                        i = 8;
+                    }
+                }
                 }
 
             }
         }
-    }
+    
 
-    for (var i = 0; i <= 7; i++) {
+    for (var i = 1; i <= 7; i++) {
         if (!(((parseInt(id.charAt(1))) - i) < 0)) {//checks whether the tile(s) left of the rook are out of board range
             if (board[parseInt(id.charAt(0))][parseInt((id.charAt(1))) - i] === 0) {
                 document.getElementById((parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) - i)).style.background = "lightgreen";
@@ -185,49 +207,80 @@ var MoveRook = function (id, isWhite) {
             }
             if (board[parseInt(id.charAt(0))][parseInt((id.charAt(1)) - i)] !== 0) {
                 if (isWhite) {
+                    console.log("TEST");
                     if (BPieces.includes(board[parseInt(id.charAt(0))][parseInt((id.charAt(1))) - i])) {
                         document.getElementById((parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) - i)).style.background = "lightgreen";
                         moves[moves.length] = (parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) - i);
-                        i = 7;
+                        i = 8;
                     }
+                    else {
+                        i=8;
+                    }
+                }
+                else {
+                    if (WPieces.includes(board[parseInt(id.charAt(0))][parseInt((id.charAt(1))) - i])) {
+                        document.getElementById((parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) - i)).style.background = "lightgreen";
+                        moves[moves.length] = (parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) - i);
+                        i = 8;
+                    }
+                    else {
+                        i=8;
+                    }
+                }
                 }
 
             }
         }
-    }
+    
 
 
-    for (var i = 0; i <= 7; i++) {
-        if (!(((parseInt(id.charAt(1))) + i) < 0)) {//checks whether the tile(s) right of the rook are out of board range
-            if (board[parseInt(id.charAt(0))][parseInt((id.charAt(1))) + i] === 0) {
+    for (var i = 1; i <= 7; i++) {
+        if (!(((parseInt(id.charAt(1))) + i) > 7)) {//checks whether the tile(s) right of the rook are out of board range
+            if (board[parseInt(id.charAt(0))][parseInt((id.charAt(1))) + i] === 0) { 
                 document.getElementById((parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) + i)).style.background = "lightgreen";
                 moves[moves.length] = (parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) + i);
             }
-            if (board[parseInt(id.charAt(0))][parseInt((id.charAt(1)) + i)] !== 0) {
+            if (board[parseInt(id.charAt(0))][parseInt(id.charAt(1))+i] !== 0) {
+            
                 if (isWhite) {
                     if (BPieces.includes(board[parseInt(id.charAt(0))][parseInt((id.charAt(1))) + i])) {
                         document.getElementById((parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) + i)).style.background = "lightgreen";
                         moves[moves.length] = (parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) + i);
-                        i = 7;
+                        i = 8;
+                    }
+                    else {
+                        i = 8;
                     }
                 }
                 else {
                     if (WPieces.includes(board[parseInt(id.charAt(0))][parseInt((id.charAt(1))) + i])) {
                         document.getElementById((parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) + i)).style.background = "lightgreen";
                         moves[moves.length] = (parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) + i);
-                        i = 7;
+                        i = 8;
                     }
-
+                    else {
+                        i = 8;
+                    }
+                }
                 }
             }
         }
+    
+        if (isWhite) {
+            var onClick = function (event) {
+                globalOnClick(event, moves, id, onClick, WRook);
+            } 
+            $(".square").click(onClick);
+        }
+        else {
+            var onClick = function (event) {
+                globalOnClick(event, moves, id, onClick, BRook);
+            }
+            $(".square").click(onClick);
+        }
+        
     }
 
-        var onClick = function (event) {
-            globalOnClick(event, moves, id, onClick, WRook);
-        }
-        $(".square").click(onClick);
-    }
 
 
 

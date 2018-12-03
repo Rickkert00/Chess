@@ -22,10 +22,10 @@ var BPieces = [BPawn, BRook, BKnight, BBishop, BQueen, BKing];
 var board = [[WRook, WKnight, WBishop, WQueen, WKing, WBishop, WKnight, WRook],
 [WPawn, WPawn, WPawn, WPawn, WPawn, WPawn, WPawn, WPawn],
 [0, 0, 0, 0, 0, 0, BQueen, 0],
-[0, BKing, 0, WRook, 0, 0, 0, 0],
-[0, 0, 0, 0, BKnight, WKnight, 0, 0],
+[0, BKing, 0, BRook, 0, 0, 0, 0],
+[WRook, 0, 0, 0, BKnight, WKnight, 0, 0],
 [0, 0, 0, WPawn, 0, 0, 0, 0],
-[BPawn, BPawn, BPawn, BPawn, BPawn, BPawn, BPawn, BPawn],
+[BPawn, BPawn, BPawn, BPawn, BPawn, BPawn, BPawn, 0],
 [BRook, BKnight, BBishop, BQueen, BKing, BBishop, BKnight, BRook]];
 
 
