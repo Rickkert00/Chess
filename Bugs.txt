@@ -1,0 +1,4 @@
+Move Pieces need to be synchronised.    FIXED
+White pawn eating white pawn considered valid.  FIXED
+Can sometimes click on non green valid squares. FIXED
+Highlighting Causes Selection Problems.
