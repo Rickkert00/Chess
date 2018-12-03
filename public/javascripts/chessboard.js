@@ -1,7 +1,9 @@
 //declaring some constants such as the standard chess board layout and the html unicode characters for chess pieces, 
 //the numbers represent the chess pieces, with 6 a Black rook, 5 a Black Knight, 4 a Black Bishop, 3 a Black queen, 2 a black king, 1 a black pawn,
 //all the negative numbers represent the white variants of the pieces
-const WPawn = "&#9817;";
+const WPawn = {
+    unicode: "&#9817;",
+    color: "White"};
 const BPawn = "&#9823;";
 const WRook = "&#9814;";
 const BRook = "&#9820;";
@@ -15,11 +17,11 @@ const WQueen = "&#9813;";
 const BQueen = "&#9819;";
 
 var board = [[WRook, WKnight, WBishop, WQueen, WKing, WBishop, WKnight, WRook],
-[WPawn, WPawn, WPawn, WPawn, WPawn, WPawn, WPawn, WPawn],
-[0, BKing, 0, 0, 0, 0, BQueen, 0],
+[WPawn.unicode, WPawn.unicode, WPawn.unicode, WPawn.unicode, WPawn.unicode, WPawn.unicode, WPawn.unicode, WPawn.unicode],
+[0, 0, 0, 0, 0, 0, BQueen, 0],
+[0, BKing, 0, 0, 0, 0, 0, 0],
 [0, 0, 0, 0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, WPawn.unicode, 0, 0, 0, 0],
 [BPawn, BPawn, BPawn, BPawn, BPawn, BPawn, BPawn, BPawn],
 [BRook, BKnight, BBishop, BQueen, BKing, BBishop, BKnight, BRook]];
 
@@ -115,7 +117,10 @@ var initialplacement = function () {
     for (var r = 0; r <= 7; r++) {
         for (var c = 0; c <= 7; c++) {
             if (board[r][c] !== 0) {
-                document.getElementById(r + "" + c).innerHTML = board[r][c];
+                document.getElementById(r + "" + c).innerHTML = board[r][c];//place all pieces on the board
+            }
+            else {
+                document.getElementById(r + "" + c).innerHTML = "";//set all other tiles to have no piece on them
             }
         }
     }
@@ -128,12 +133,10 @@ function playAudio() {
 }
 
 var select = function () {
-    var originContent;
-    var originLocation;
     $(".square").click(function (event) {
-        parser = new DOMParser;
-        switch (document.getElementById(event.target.id).innerHTML) {
-            case parser.parseFromString(WPawn, 'text/html').body.textContent: MoveWPawn(event.target.id);//this converts the const to an image so the comparison goes right
+        parser = new DOMParser;//needed to parse the unicode to actual images so the comparison in the cases goes right
+        switch (document.getElementById(event.target.id).innerHTML) {//get the content of the clicked tile
+            case parser.parseFromString(WPawn.unicode, 'text/html').body.textContent: MoveWPawn(event.target.id);//this converts the const to an image so the comparison goes right
                 break;
             case BPawn: MoveBPawn();
                 break;
@@ -144,29 +147,64 @@ var select = function () {
 }
 //this function computes all possible moves for the white pawn that is currently selected via a click
 var MoveWPawn = function (id) {
+    var moves = [];
+    parser = new DOMParser;
     if (((!(parseInt(id.charAt(1)) - 1 < 0)))) {//this checks whether the left diagonal tile is not out of board range
         if (board[parseInt(id.charAt(0)) + 1][parseInt((id.charAt(1)) - 1)] !== 0) {//this checks whether there is a piece or not on the left diagonal tile from the selected piece
-            if (board[parseInt(id.charAt(0)) + 1][parseInt((id.charAt(1)) - 1)].charAt(0) !== "W") {//this checks whether the piece is white or black
+            console.log(board[parseInt(id.charAt(0)) + 1][parseInt((id.charAt(1)) - 1)].charAt(0));
+            console.log(board[parseInt(id.charAt(0)) + 1][parseInt((id.charAt(1)) - 1)].color);
+            //fix white checking
+            if (board[parseInt(id.charAt(0)) + 1][parseInt((id.charAt(1)) - 1)].color !== "White") {//this checks whether the piece is white or black
                 document.getElementById((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)) - 1)).style.background = "green";//sets the tile background to green if the piece is black , it indicates that is is a legal move
-            }
+                moves[moves.length] = ((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1))- 1));
+                        }
         }
     }
+
     if (!(parseInt(id.charAt(1)) + 1 > 7)) {//checks whether the right diagonal tile is not out of board range
         if (board[parseInt(id.charAt(0)) + 1][parseInt(id.charAt(1)) + 1] !== 0) {//checks whether the right diagonal tile is empty or not
-            if (board[parseInt(id.charAt(0))+1][parseInt(id.charAt(1))+1].charAt(0) !== "W") {//checks whether it is black or white
+            if (board[parseInt(id.charAt(0)) + 1][parseInt(id.charAt(1)) + 1].color !== "White") {//checks whether it is black or white
                 document.getElementById((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)) + 1)).style.background = "green";//if black then mark it as a possible move
+                moves[moves.length] = ((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1))+ 1));
             }
         }
     }
 
     if (!((parseInt(id.charAt(0)) + 1) > 7)) {//check whether tile straight ahead is out of board range
-        if (board[parseInt(id.charAt(0)) + 1][parseInt((id.charAt(1)))] === 0){//check whether the tile ahead is emtpy or not
-        document.getElementById((parseInt(id.charAt(0)) + 1) + "" + id.charAt(1)).style.background = "green";//if empty then mark possible move
+        if (board[parseInt(id.charAt(0)) + 1][parseInt((id.charAt(1)))] === 0) {//check whether the tile ahead is emtpy or not
+            document.getElementById((parseInt(id.charAt(0)) + 1) + "" + id.charAt(1)).style.background = "green";//if empty then mark possible move
+            moves[moves.length] = ((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1))));
+            if (parseInt(id.charAt(0)) === 1) {//check whether the pawn is still in the default row to check for double tile move
+                if (board[parseInt(id.charAt(0)) + 2][parseInt((id.charAt(1)))] === 0) {//check whether the tile 2 rows above is empty or not
+                    document.getElementById((parseInt(id.charAt(0)) + 2) + "" + id.charAt(1)).style.background = "green";//if empty then mark possible move
+                    moves[moves.length] = ((parseInt(id.charAt(0)) + 2) + "" + (parseInt(id.charAt(1))));
+                }
+            }
+
+        }
     }
+    $(".square").click(function (event) {
+        for (var i = 0; i<moves.length; i++) {
+        if (event.target.id === moves[i]){
+            board[parseInt(event.target.id.charAt(0))][parseInt(event.target.id.charAt(1))] = WPawn.unicode;
+            board[parseInt(id.charAt(0))][parseInt(id.charAt(1))] = 0;
+            initialplacement();
+            for (j = 0; j< moves.length; j++) {
+                if (parseInt(moves[j].charAt(0)) % 2 === parseInt(moves[j].charAt(1) % 2)) {
+                    document.getElementById(moves[j]).style.background = "white";
+                } else {
+                    document.getElementById(moves[j]).style.background = "gray";
+                }
+            }
+            console.log(board[1][6].charAt(0));
+            return;
+        }
     }
+    });
 }
 
-    
+
+
 
 // var selectTarget = function (originContent, originLocation) {
 //     var target;
