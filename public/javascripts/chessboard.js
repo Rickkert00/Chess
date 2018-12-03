@@ -33,7 +33,7 @@ var board = [[WRook, WKnight, WBishop, WQueen, WKing, WBishop, WKnight, WRook],
 var buildboard = function () {
 
     //Loop that creates Rows
-    for (var i = 7; i >= 0; i--) {
+    for (let i = 7; i >= 0; i--) {
         var divRow = $("<div>", {
             class: "row",
         });
@@ -60,8 +60,8 @@ var buildboard = function () {
 
 //place the pieces on the starting tiles
 var initialplacement = function () {
-    for (var r = 0; r <= 7; r++) {
-        for (var c = 0; c <= 7; c++) {
+    for (let r = 0; r <= 7; r++) {
+        for (let c = 0; c <= 7; c++) {
             if (board[r][c] !== 0) {
                 document.getElementById(r + "" + c).innerHTML = board[r][c];//place all pieces on the board
             }

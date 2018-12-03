@@ -6,19 +6,15 @@ var select = function () {
             parser = new DOMParser;//needed to parse the unicode to actual images so the comparison in the cases goes right
             switch (document.getElementById(event.target.id).innerHTML) {//get the content of the clicked tile
                 case parser.parseFromString(WPawn, 'text/html').body.textContent: MovePawn(event.target.id, true);//this converts the const to an image so the comparison goes right
-                    clicked = true;
                     break;
                 case parser.parseFromString(BPawn, 'text/html').body.textContent: MovePawn(event.target.id, false);//this converts the const to an image so the comparison goes right
-                    clicked = true;
                     break;
                 case parser.parseFromString(WRook, 'text/html').body.textContent: MoveRook(event.target.id, true);
-                    clicked = true;
                     break;
                 case parser.parseFromString(WBishop, 'text/html').body.textContent: MoveBishop(event.target.id, true);
                     clicked = true;
                     break;
                 case parser.parseFromString(WKnight, 'text/html').body.textContent: MoveKnight(event.target.id, true);
-                    clicked = true;
                     break;
                 case parser.parseFromString(WQueen, 'text/html').body.textContent: MoveQueen(event.target.id, true);
                     clicked = true;
@@ -27,13 +23,11 @@ var select = function () {
                     clicked = true;
                     break;
                 case parser.parseFromString(BRook, 'text/html').body.textContent: MoveRook(event.target.id, false);
-                    clicked = true;
                     break;
                 case parser.parseFromString(BBishop, 'text/html').body.textContent: MoveBishop(event.target.id, false);
                     clicked = true;
                     break;
                 case parser.parseFromString(BKnight, 'text/html').body.textContent: MoveKnight(event.target.id, false);
-                    clicked = true;
                     break;
                 case parser.parseFromString(BQueen, 'text/html').body.textContent: MoveQueen(event.target.id, false);
                     clicked = true;
@@ -52,14 +46,14 @@ var select = function () {
 }
 //this function checks whether you clicked on one of the possible moves or not and then moves the pieces accordingly or resets the clicking event
 var globalOnClick = function (event, moves, id, onClick, piece) {
-    if (clicked) {
-        for (var i = 0; i < moves.length; i++) {
+    if (clicked) {    
+        for (let i = 0; i < moves.length; i++) {
             if (event.target.id === moves[i]) {
                 clicked = false;
                 board[parseInt(event.target.id.charAt(0))][parseInt(event.target.id.charAt(1))] = piece;
                 board[parseInt(id.charAt(0))][parseInt(id.charAt(1))] = 0;
                 initialplacement();
-                for (j = 0; j < moves.length; j++) {
+                for (let j = 0; j < moves.length; j++) {
                     if (parseInt(moves[j].charAt(0)) % 2 === parseInt(moves[j].charAt(1) % 2)) {
                         document.getElementById(moves[j]).style.background = "white";
                     } else {
@@ -71,7 +65,7 @@ var globalOnClick = function (event, moves, id, onClick, piece) {
             }
 
         }
-        for (j = 0; j < moves.length; j++) {
+        for (let j = 0; j < moves.length; j++) {
             if (parseInt(moves[j].charAt(0)) % 2 === parseInt(moves[j].charAt(1) % 2)) {
                 document.getElementById(moves[j]).style.background = "white";
             } else {
@@ -85,9 +79,9 @@ var globalOnClick = function (event, moves, id, onClick, piece) {
 
 //this function computes all possible moves for the white pawn that is currently selected via a click
 var MovePawn = function (id, isWhite) {
-    var moves = [];
+    let moves =[];
 
-    var pawngen = function (enemyArray) {
+    let pawngen = function (enemyArray) {
         if (isWhite) {
             if (((!(parseInt(id.charAt(1)) - 1 < 0)))) {//this checks whether the left diagonal tile is not out of board range
 
@@ -97,12 +91,12 @@ var MovePawn = function (id, isWhite) {
                         document.getElementById((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)) - 1)).style.background = "lightgreen";//sets the tile background to green if the piece is black , it indicates that is is a legal move
                         moves[moves.length] = ((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)) - 1));
                     }
-    
+
                 }
             }
             if (!(parseInt(id.charAt(1)) + 1 > 7)) {//checks whether the right diagonal tile is not out of board range
                 if (board[parseInt(id.charAt(0)) + 1][parseInt(id.charAt(1)) + 1] !== 0) {//checks whether the right diagonal tile is empty or not  
-    
+
                     if (enemyArray.includes(board[parseInt(id.charAt(0)) + 1][parseInt(id.charAt(1)) + 1])) {//checks whether it is black or white
                         document.getElementById((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)) + 1)).style.background = "lightgreen";//if black then mark it as a possible move
                         moves[moves.length] = ((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)) + 1));
@@ -133,12 +127,12 @@ var MovePawn = function (id, isWhite) {
                         document.getElementById((parseInt(id.charAt(0)) - 1) + "" + (parseInt(id.charAt(1)) - 1)).style.background = "lightgreen";//sets the tile background to green if the piece is black , it indicates that is is a legal move
                         moves[moves.length] = ((parseInt(id.charAt(0)) - 1) + "" + (parseInt(id.charAt(1)) - 1));
                     }
-    
+
                 }
             }
             if (!(parseInt(id.charAt(1)) + 1 > 7)) {//checks whether the left diagonal tile is not out of board range
                 if (board[parseInt(id.charAt(0)) - 1][parseInt(id.charAt(1)) + 1] !== 0) {//checks whether the right diagonal tile is empty or not  
-    
+
                     if (enemyArray.includes(board[parseInt(id.charAt(0)) - 1][parseInt(id.charAt(1)) + 1])) {//checks whether it is black or white
                         document.getElementById((parseInt(id.charAt(0)) - 1) + "" + (parseInt(id.charAt(1)) + 1)).style.background = "lightgreen";//if black then mark it as a possible move
                         moves[moves.length] = ((parseInt(id.charAt(0)) - 1) + "" + (parseInt(id.charAt(1)) + 1));
@@ -172,32 +166,35 @@ var MovePawn = function (id, isWhite) {
         pawngen(WPieces);
         console.log("Black Pawn")
     }
-
+if (moves.length === 0) {
+    return;
+}
+else {
     //this handles the clicking on a new square 
     if (isWhite) {
         var onClick = function (event) {
             globalOnClick(event, moves, id, onClick, WPawn);
         }
         $(".square").click(onClick);
+        clicked = true;
     }
     else {
         var onClick = function (event) {
             globalOnClick(event, moves, id, onClick, BPawn);
         }
         $(".square").click(onClick);
+        clicked = true;
     }
+}
 }
 
 var MoveRook = function (id, isWhite) {
-    var moves = [];
-    for (var i = 1; i <= 7; i++) {
+    let moves = [];
+    //check for tiles above the rook for legal moves
+    for (let i = 1; i <= 7; i++) {
         if (!(((parseInt(id.charAt(0))) + i) > 7)) {//checks whether the tile(s) above the rook are out of board range
 
             if (board[parseInt(id.charAt(0)) + i][parseInt((id.charAt(1)))] === 0) {
-<<<<<<< HEAD
-=======
-
->>>>>>> a3059b37db3cbd3678ff4c870a4f8efe21c6a991
                 document.getElementById((parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)))).style.background = "lightgreen";
                 moves[moves.length] = (parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)));
             }
@@ -209,43 +206,35 @@ var MoveRook = function (id, isWhite) {
                         i = 8;
                     }
                     else {
-                    i = 8; 
-                    }  
+                        i = 8;
+                    }
                 }
                 else {
-<<<<<<< HEAD
                     if (WPieces.includes(board[parseInt(id.charAt(0)) + i][parseInt((id.charAt(1)))])) {
                         document.getElementById((parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)))).style.background = "lightgreen";
                         moves[moves.length] = (parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)));
                         i = 8;
                     }
                     else {
-                    i = 8; 
+                        i = 8;
                     }
                 }
-=======
-                    console.log("test4");
-                    document.getElementById((parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)))).style.background = "lightgreen";
-                    moves[moves.length] = (parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)));
-                    i = 7;
->>>>>>> a3059b37db3cbd3678ff4c870a4f8efe21c6a991
-                }
-                                       
             }
 
-            }
-        
-    
+        }
+
+    }
 
 
-    for (var i = 1; i <= 7; i++) {
+
+    //check for tiles below the rook that are legal moves
+    for (let i = 1; i <= 7; i++) {
         if (!(((parseInt(id.charAt(0))) - i) < 0)) {//checks whether the tile(s) below the rook are out of board range
             if (board[parseInt(id.charAt(0)) - i][parseInt((id.charAt(1)))] === 0) {
                 document.getElementById((parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)))).style.background = "lightgreen";
                 moves[moves.length] = (parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)));
             }
             if (board[parseInt(id.charAt(0)) - i][parseInt((id.charAt(1)))] !== 0) {
-                console.log('HI');
                 if (isWhite) {
                     if (BPieces.includes(board[parseInt(id.charAt(0)) - i][parseInt((id.charAt(1)))])) {
                         document.getElementById((parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)))).style.background = "lightgreen";
@@ -266,13 +255,13 @@ var MoveRook = function (id, isWhite) {
                         i = 8;
                     }
                 }
-                }
-
             }
-        }
-    
 
-    for (var i = 1; i <= 7; i++) {
+        }
+    }
+
+    //check for tiles to the left of the rook for legal moves
+    for (let i = 1; i <= 7; i++) {
         if (!(((parseInt(id.charAt(1))) - i) < 0)) {//checks whether the tile(s) left of the rook are out of board range
             if (board[parseInt(id.charAt(0))][parseInt((id.charAt(1))) - i] === 0) {
                 document.getElementById((parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) - i)).style.background = "lightgreen";
@@ -280,14 +269,13 @@ var MoveRook = function (id, isWhite) {
             }
             if (board[parseInt(id.charAt(0))][parseInt((id.charAt(1)) - i)] !== 0) {
                 if (isWhite) {
-                    console.log("TEST");
                     if (BPieces.includes(board[parseInt(id.charAt(0))][parseInt((id.charAt(1))) - i])) {
                         document.getElementById((parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) - i)).style.background = "lightgreen";
                         moves[moves.length] = (parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) - i);
                         i = 8;
                     }
                     else {
-                        i=8;
+                        i = 8;
                     }
                 }
                 else {
@@ -297,24 +285,23 @@ var MoveRook = function (id, isWhite) {
                         i = 8;
                     }
                     else {
-                        i=8;
+                        i = 8;
                     }
                 }
-                }
-
             }
+
         }
-    
+    }
 
-
-    for (var i = 1; i <= 7; i++) {
+    //check for tiles right of the rook that are legal moves
+    for (let i = 1; i <= 7; i++) {
         if (!(((parseInt(id.charAt(1))) + i) > 7)) {//checks whether the tile(s) right of the rook are out of board range
-            if (board[parseInt(id.charAt(0))][parseInt((id.charAt(1))) + i] === 0) { 
+            if (board[parseInt(id.charAt(0))][parseInt((id.charAt(1))) + i] === 0) {
                 document.getElementById((parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) + i)).style.background = "lightgreen";
                 moves[moves.length] = (parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) + i);
             }
-            if (board[parseInt(id.charAt(0))][parseInt(id.charAt(1))+i] !== 0) {
-            
+            if (board[parseInt(id.charAt(0))][parseInt(id.charAt(1)) + i] !== 0) {
+
                 if (isWhite) {
                     if (BPieces.includes(board[parseInt(id.charAt(0))][parseInt((id.charAt(1))) + i])) {
                         document.getElementById((parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) + i)).style.background = "lightgreen";
@@ -335,47 +322,41 @@ var MoveRook = function (id, isWhite) {
                         i = 8;
                     }
                 }
-                }
             }
         }
-<<<<<<< HEAD
-    
-        if (isWhite) {
-            var onClick = function (event) {
-                globalOnClick(event, moves, id, onClick, WRook);
-            } 
-            $(".square").click(onClick);
-        }
-        else {
-            var onClick = function (event) {
-                globalOnClick(event, moves, id, onClick, BRook);
-            }
-            $(".square").click(onClick);
-        }
-        
-=======
     }
 
-    var onClick = function (event) {
-        globalOnClick(event, moves, id, onClick, WRook);
->>>>>>> a3059b37db3cbd3678ff4c870a4f8efe21c6a991
+    if (moves.length === 0) {
+           return;
     }
-    $(".square").click(onClick);
+    else {
+    if (isWhite) { 
+
+        var onClick = function (event) {
+           
+      globalOnClick(event, moves, id, onClick, WRook);
+        }
+        $(".square").click(onClick);
+        clicked = true;
+    }
+    else {
+        var onClick = function (event) {
+            globalOnClick(event, moves, id, onClick, BRook);
+        }
+        $(".square").click(onClick);
+        clicked = true;
+    }
+    }
 }
 
 
 
-<<<<<<< HEAD
 
-    var MoveKnight = function (id, isWhite) {
-        var moves = [];
-=======
 var MoveKnight = function (id, isWhite) {
-    var moves = [];
->>>>>>> a3059b37db3cbd3678ff4c870a4f8efe21c6a991
+    let moves = [];
 
     //Move Generation
-    var knightgen = function (allyArray) {
+    let knightgen = function (allyArray) {
         for (var i = 0; i <= 2; i += 2) {
             //First If check if move out of bounds
             if (((parseInt(id.charAt(0))) + 2 >= 0) && (parseInt(id.charAt(0))) + 2 <= 7 && ((parseInt(id.charAt(1))) + (-1 + i) >= 0) && ((parseInt(id.charAt(1))) + (-1 + i) <= 7)) {
@@ -416,19 +397,26 @@ var MoveKnight = function (id, isWhite) {
         console.log("Black Knight");
     }
 
+    if (moves.length === 0) {
+        return;
+    }
+    else {
     //this handles the clicking on a new square 
     if (isWhite) {
         var onClick = function (event) {
             globalOnClick(event, moves, id, onClick, WKnight);
         }
         $(".square").click(onClick);
+        clicked = true;
     }
     else {
         var onClick = function (event) {
             globalOnClick(event, moves, id, onClick, BKnight);
         }
         $(".square").click(onClick);
+        clicked = true;
     }
+}
 }
 
 //main method 2
