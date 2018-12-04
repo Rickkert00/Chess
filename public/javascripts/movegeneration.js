@@ -103,10 +103,10 @@ var promotion = function (isWhite) {
     if (choice === null || choice === "" || (!(WPieces.includes(window[choice]))&&!(BPieces.includes(window[choice])))) {
         alert("K, You trying to break the game?\n Nice Try....");
         if(isWhite){
-            return window[WPawn];
+            return WPawn;
         }
         else{
-            return[BPawn];
+            return BPawn;
         }
     }
     else{
