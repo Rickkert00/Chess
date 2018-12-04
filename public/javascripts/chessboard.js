@@ -2,18 +2,18 @@
 //the numbers represent the chess pieces, with 6 a Black rook, 5 a Black Knight, 4 a Black Bishop, 3 a Black queen, 2 a black king, 1 a black pawn,
 //all the negative numbers represent the white variants of the pieces
 
-const WPawn = "&#9817;"
-const BPawn = "&#9823;";
-const WRook = "&#9814;";
-const BRook = "&#9820;";
-const WKnight = "&#9816;";
-const BKnight = "&#9822;";
-const WBishop = "&#9815;";
-const BBishop = "&#9821;";
-const WKing = "&#9812;";
-const BKing = "&#9818;";
-const WQueen = "&#9813;";
-const BQueen = "&#9819;";
+var WPawn = "&#9817;"
+var BPawn = "&#9823;";
+var WRook = "&#9814;";
+var BRook = "&#9820;";
+var WKnight = "&#9816;";
+var BKnight = "&#9822;";
+var WBishop = "&#9815;";
+var BBishop = "&#9821;";
+var WKing = "&#9812;";
+var BKing = "&#9818;";
+var WQueen = "&#9813;";
+var BQueen = "&#9819;";
 
 var WPieces = [WPawn, WRook, WKnight, WBishop, WQueen, WKing];
 var BPieces = [BPawn, BRook, BKnight, BBishop, BQueen, BKing];
@@ -21,11 +21,11 @@ var BPieces = [BPawn, BRook, BKnight, BBishop, BQueen, BKing];
 
 var board = [[WRook, WKnight, WBishop, WQueen, WKing, WBishop, WKnight, WRook],
 [WPawn, WPawn, WPawn, WPawn, WPawn, WPawn, WPawn, WPawn],
-[0, 0, 0, 0, 0, 0, BQueen, 0],
-[0, BKing, 0, BRook, 0, 0, 0, 0],
-[WRook, 0, 0, 0, BKnight, WKnight, 0, 0],
-[0, 0, 0, WPawn, 0, 0, 0, 0],
-[BPawn, BPawn, BPawn, BPawn, BPawn, BPawn, BPawn, 0],
+[0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 0],
+[BPawn, BPawn, BPawn, BPawn, BPawn, BPawn, BPawn, BPawn],
 [BRook, BKnight, BBishop, BQueen, BKing, BBishop, BKnight, BRook]];
 
 

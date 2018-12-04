@@ -46,11 +46,20 @@ var select = function () {
 }
 //this function checks whether you clicked on one of the possible moves or not and then moves the pieces accordingly or resets the clicking event
 var globalOnClick = function (event, moves, id, onClick, piece) {
-    if (clicked) {    
+    if (clicked) {
         for (let i = 0; i < moves.length; i++) {
             if (event.target.id === moves[i]) {
                 clicked = false;
                 board[parseInt(event.target.id.charAt(0))][parseInt(event.target.id.charAt(1))] = piece;
+
+                //Check If White pawn and needs promotion
+                if(piece==="&#9817;" && parseInt(event.target.id.charAt(0))===7){
+                    board[parseInt(event.target.id.charAt(0))][parseInt(event.target.id.charAt(1))] = promotion(true);
+                }
+                if(piece==="&#9823;" && parseInt(event.target.id.charAt(0))===0){
+                    board[parseInt(event.target.id.charAt(0))][parseInt(event.target.id.charAt(1))] = promotion(false);
+                } 
+
                 board[parseInt(id.charAt(0))][parseInt(id.charAt(1))] = 0;
                 initialplacement();
                 for (let j = 0; j < moves.length; j++) {
@@ -77,10 +86,39 @@ var globalOnClick = function (event, moves, id, onClick, piece) {
     $(".square").unbind("click", onClick);
 }
 
+
+
+//Promotion Method for Pawns:
+var promotion = function (isWhite) {
+    var choice = prompt("Please Enter The Name Of The Piece You Want\n Start with Capital Eg: Queen", "Pawn");
+    if (isWhite) {
+        choice = "W" + choice;
+    }
+    else {
+        choice = "B" + choice;
+    }
+    console.log("The Chosen Piece: "+choice);
+    console.log("Unicode: "+window[choice]);
+    //Check for Valid input
+    if (choice === null || choice === "" || (!(WPieces.includes(window[choice]))&&!(BPieces.includes(window[choice])))) {
+        alert("K, You trying to break the game?\n Nice Try....");
+        if(isWhite){
+            return window[WPawn];
+        }
+        else{
+            return[BPawn];
+        }
+    }
+    else{
+        console.log("Promotion to: " +choice);
+        alert("Your Piece is Now A: "+choice+"!");
+        return window[choice];
+    }
+}
+
 //this function computes all possible moves for the white pawn that is currently selected via a click
 var MovePawn = function (id, isWhite) {
-    let moves =[];
-
+    let moves = [];
     let pawngen = function (enemyArray) {
         if (isWhite) {
             if (((!(parseInt(id.charAt(1)) - 1 < 0)))) {//this checks whether the left diagonal tile is not out of board range
@@ -117,6 +155,7 @@ var MovePawn = function (id, isWhite) {
 
                 }
             }
+
         }
         else {
             if (((!(parseInt(id.charAt(1)) - 1 < 0)))) {//this checks whether the left diagonal tile is not out of board range
@@ -166,26 +205,26 @@ var MovePawn = function (id, isWhite) {
         pawngen(WPieces);
         console.log("Black Pawn")
     }
-if (moves.length === 0) {
-    return;
-}
-else {
-    //this handles the clicking on a new square 
-    if (isWhite) {
-        var onClick = function (event) {
-            globalOnClick(event, moves, id, onClick, WPawn);
-        }
-        $(".square").click(onClick);
-        clicked = true;
+    if (moves.length === 0) {
+        return;
     }
     else {
-        var onClick = function (event) {
-            globalOnClick(event, moves, id, onClick, BPawn);
+        //this handles the clicking on a new square 
+        if (isWhite) {
+            var onClick = function (event) {
+                globalOnClick(event, moves, id, onClick, WPawn);
+            }
+            $(".square").click(onClick);
+            clicked = true;
         }
-        $(".square").click(onClick);
-        clicked = true;
+        else {
+            var onClick = function (event) {
+                globalOnClick(event, moves, id, onClick, BPawn);
+            }
+            $(".square").click(onClick);
+            clicked = true;
+        }
     }
-}
 }
 
 var MoveRook = function (id, isWhite) {
@@ -327,25 +366,25 @@ var MoveRook = function (id, isWhite) {
     }
 
     if (moves.length === 0) {
-           return;
+        return;
     }
     else {
-    if (isWhite) { 
+        if (isWhite) {
 
-        var onClick = function (event) {
-           
-      globalOnClick(event, moves, id, onClick, WRook);
+            var onClick = function (event) {
+
+                globalOnClick(event, moves, id, onClick, WRook);
+            }
+            $(".square").click(onClick);
+            clicked = true;
         }
-        $(".square").click(onClick);
-        clicked = true;
-    }
-    else {
-        var onClick = function (event) {
-            globalOnClick(event, moves, id, onClick, BRook);
+        else {
+            var onClick = function (event) {
+                globalOnClick(event, moves, id, onClick, BRook);
+            }
+            $(".square").click(onClick);
+            clicked = true;
         }
-        $(".square").click(onClick);
-        clicked = true;
-    }
     }
 }
 
@@ -401,22 +440,22 @@ var MoveKnight = function (id, isWhite) {
         return;
     }
     else {
-    //this handles the clicking on a new square 
-    if (isWhite) {
-        var onClick = function (event) {
-            globalOnClick(event, moves, id, onClick, WKnight);
+        //this handles the clicking on a new square 
+        if (isWhite) {
+            var onClick = function (event) {
+                globalOnClick(event, moves, id, onClick, WKnight);
+            }
+            $(".square").click(onClick);
+            clicked = true;
         }
-        $(".square").click(onClick);
-        clicked = true;
-    }
-    else {
-        var onClick = function (event) {
-            globalOnClick(event, moves, id, onClick, BKnight);
+        else {
+            var onClick = function (event) {
+                globalOnClick(event, moves, id, onClick, BKnight);
+            }
+            $(".square").click(onClick);
+            clicked = true;
         }
-        $(".square").click(onClick);
-        clicked = true;
     }
-}
 }
 
 //main method 2
