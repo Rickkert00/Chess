@@ -12,28 +12,22 @@ var select = function () {
                 case parser.parseFromString(WRook, 'text/html').body.textContent: MoveRook(event.target.id, true);
                     break;
                 case parser.parseFromString(WBishop, 'text/html').body.textContent: MoveBishop(event.target.id, true);
-                    clicked = true;
                     break;
                 case parser.parseFromString(WKnight, 'text/html').body.textContent: MoveKnight(event.target.id, true);
                     break;
                 case parser.parseFromString(WQueen, 'text/html').body.textContent: MoveQueen(event.target.id, true);
-                    clicked = true;
                     break;
                 case parser.parseFromString(WKing, 'text/html').body.textContent: MoveKing(event.target.id, true);
-                    clicked = true;
                     break;
                 case parser.parseFromString(BRook, 'text/html').body.textContent: MoveRook(event.target.id, false);
                     break;
                 case parser.parseFromString(BBishop, 'text/html').body.textContent: MoveBishop(event.target.id, false);
-                    clicked = true;
                     break;
                 case parser.parseFromString(BKnight, 'text/html').body.textContent: MoveKnight(event.target.id, false);
                     break;
                 case parser.parseFromString(BQueen, 'text/html').body.textContent: MoveQueen(event.target.id, false);
-                    clicked = true;
                     break;
                 case parser.parseFromString(BKing, 'text/html').body.textContent: MoveKing(event.target.id, false);
-                    clicked = true;
                     break;
 
             }
@@ -221,6 +215,660 @@ var MovePawn = function (id, isWhite) {
         }
     }
 }
+
+var MoveKing = function (id, isWhite) {
+    let moves = [];
+    //top left diagonal
+    if (((!(parseInt(id.charAt(1)) - 1 < 0)))) {//this checks whether the left diagonal tile is not out of board range
+        if (board[parseInt(id.charAt(0)) + 1][parseInt((id.charAt(1)) - 1)] === 0) {//this checks whether there is a piece or not on the left diagonal tile from the selected piece
+            document.getElementById((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)) - 1)).style.background = "lightgreen";//sets the tile background to green if the piece is black , it indicates that is is a legal move
+            moves[moves.length] = ((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)) - 1));
+        }
+        //check whether there is a black or white piece on the tile left diagonal
+        if (isWhite) {
+            if (BPieces.includes(board[parseInt(id.charAt(0)) + 1][parseInt((id.charAt(1)) - 1)])) {//this checks whether the piece is white or black
+                document.getElementById((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)) - 1)).style.background = "lightgreen";//sets the tile background to green if the piece is black , it indicates that is is a legal move
+                moves[moves.length] = ((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)) - 1));
+            }
+        }
+        else {
+            if (WPieces.includes(board[parseInt(id.charAt(0)) + 1][parseInt((id.charAt(1)) - 1)])) {//this checks whether the piece is white or black
+                document.getElementById((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)) - 1)).style.background = "lightgreen";//sets the tile background to green if the piece is black , it indicates that is is a legal move
+                moves[moves.length] = ((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)) - 1));
+            } 
+        }
+    }
+    //tile straigt above
+    if (((!(parseInt(id.charAt(0)) + 1 > 7)))) {//this checks whether the left diagonal tile is not out of board range
+        if (board[parseInt(id.charAt(0)) + 1][parseInt((id.charAt(1)))] === 0) {//this checks whether there is a piece or not on the tile straight ahead from the selected piece
+            document.getElementById((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)))).style.background = "lightgreen";//sets the tile background to green if the piece is black , it indicates that is is a legal move
+            moves[moves.length] = ((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)) - 1));
+        }
+        //check whether there is a black or white piece on the tile straight ahead 
+        if (isWhite) {
+            if (BPieces.includes(board[parseInt(id.charAt(0)) + 1][parseInt((id.charAt(1)))])) {//this checks whether the piece is white or black
+                document.getElementById((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)))).style.background = "lightgreen";//sets the tile background to green if the piece is black , it indicates that is is a legal move
+                moves[moves.length] = ((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1))));
+            }
+        }
+        else {
+            if (WPieces.includes(board[parseInt(id.charAt(0)) + 1][parseInt((id.charAt(1)))])) {//this checks whether the piece is white or black
+                document.getElementById((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)))).style.background = "lightgreen";//sets the tile background to green if the piece is black , it indicates that is is a legal move
+                moves[moves.length] = ((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1))));
+            } 
+        }
+    }
+
+     //tile top right diagonal
+     if (((!(parseInt(id.charAt(1)) + 1 > 7)))) {//this checks whether the left diagonal tile is not out of board range
+        if (board[parseInt(id.charAt(0)) + 1][parseInt((id.charAt(1)) + 1)] === 0) {//this checks whether there is a piece or not on the right diagonal tile from the selected piece
+            document.getElementById((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)) + 1)).style.background = "lightgreen";//sets the tile background to green if the piece is black , it indicates that is is a legal move
+            moves[moves.length] = ((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)) + 1));
+        }
+        //check whether there is a black or white piece on the tile top right diagonal
+        if (isWhite) {
+            if (BPieces.includes(board[parseInt(id.charAt(0)) + 1][parseInt((id.charAt(1)) + 1)])) {//this checks whether the piece is white or black
+                document.getElementById((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)) + 1)).style.background = "lightgreen";//sets the tile background to green if the piece is black , it indicates that is is a legal move
+                moves[moves.length] = ((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)) + 1));
+            }
+        }
+        else {
+            if (WPieces.includes(board[parseInt(id.charAt(0)) + 1][parseInt((id.charAt(1)) + 1)])) {//this checks whether the piece is white or black
+                document.getElementById((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)) + 1)).style.background = "lightgreen";//sets the tile background to green if the piece is black , it indicates that is is a legal move
+                moves[moves.length] = ((parseInt(id.charAt(0)) + 1) + "" + (parseInt(id.charAt(1)) + 1));
+            } 
+        }
+    }
+
+     //right tile
+     if (((!(parseInt(id.charAt(1)) + 1 > 7)))) {//this checks whether the left diagonal tile is not out of board range
+        if (board[parseInt(id.charAt(0))][parseInt((id.charAt(1)) + 1)] === 0) {//this checks whether there is a piece or not on the right diagonal tile from the selected piece
+            document.getElementById((parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) + 1)).style.background = "lightgreen";//sets the tile background to green if the piece is black , it indicates that is is a legal move
+            moves[moves.length] = ((parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) + 1));
+        }
+        //check whether there is a black or white piece on the tile top right diagonal
+        if (isWhite) {
+            if (BPieces.includes(board[parseInt(id.charAt(0))][parseInt((id.charAt(1)) + 1)])) {//this checks whether the piece is white or black
+                document.getElementById((parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) + 1)).style.background = "lightgreen";//sets the tile background to green if the piece is black , it indicates that is is a legal move
+                moves[moves.length] = ((parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) + 1));
+            }
+        }
+        else {
+            if (WPieces.includes(board[parseInt(id.charAt(0))][parseInt((id.charAt(1)) + 1)])) {//this checks whether the piece is white or black
+                document.getElementById((parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) + 1)).style.background = "lightgreen";//sets the tile background to green if the piece is black , it indicates that is is a legal move
+                moves[moves.length] = ((parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) + 1));
+            } 
+        }
+    }
+    
+    //left tile
+    if (((!(parseInt(id.charAt(1)) - 1 < 0)))) {//this checks whether the left diagonal tile is not out of board range
+        if (board[parseInt(id.charAt(0))][parseInt((id.charAt(1)) - 1)] === 0) {//this checks whether there is a piece or not on the right diagonal tile from the selected piece
+            document.getElementById((parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) - 1)).style.background = "lightgreen";//sets the tile background to green if the piece is black , it indicates that is is a legal move
+            moves[moves.length] = ((parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) - 1));
+        }
+        //check whether there is a black or white piece on the tile top right diagonal
+        if (isWhite) {
+            if (BPieces.includes(board[parseInt(id.charAt(0))][parseInt((id.charAt(1)) - 1)])) {//this checks whether the piece is white or black
+                document.getElementById((parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) - 1)).style.background = "lightgreen";//sets the tile background to green if the piece is black , it indicates that is is a legal move
+                moves[moves.length] = ((parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) - 1));
+            }
+        }
+        else {
+            if (WPieces.includes(board[parseInt(id.charAt(0))][parseInt((id.charAt(1)) - 1)])) {//this checks whether the piece is white or black
+                document.getElementById((parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) - 1)).style.background = "lightgreen";//sets the tile background to green if the piece is black , it indicates that is is a legal move
+                moves[moves.length] = ((parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) - 1));
+            } 
+        }
+    }
+    //bottom left diagonal
+    if (((!(parseInt(id.charAt(0)) - 1 < 0)))) {//this checks whether the left diagonal tile is not out of board range
+        if (board[parseInt(id.charAt(0)) - 1][parseInt((id.charAt(1)) - 1)] === 0) {//this checks whether there is a piece or not on the left diagonal tile from the selected piece
+            document.getElementById((parseInt(id.charAt(0)) - 1) + "" + (parseInt(id.charAt(1)) - 1)).style.background = "lightgreen";//sets the tile background to green if the piece is black , it indicates that is is a legal move
+            moves[moves.length] = ((parseInt(id.charAt(0)) - 1) + "" + (parseInt(id.charAt(1)) - 1));
+        }
+        //check whether there is a black or white piece on the tile left diagonal
+        if (isWhite) {
+            if (BPieces.includes(board[parseInt(id.charAt(0)) - 1][parseInt((id.charAt(1)) - 1)])) {//this checks whether the piece is white or black
+                document.getElementById((parseInt(id.charAt(0)) - 1) + "" + (parseInt(id.charAt(1)) - 1)).style.background = "lightgreen";//sets the tile background to green if the piece is black , it indicates that is is a legal move
+                moves[moves.length] = ((parseInt(id.charAt(0)) - 1) + "" + (parseInt(id.charAt(1)) - 1));
+            }
+        }
+        else {
+            if (WPieces.includes(board[parseInt(id.charAt(0)) - 1][parseInt((id.charAt(1)) - 1)])) {//this checks whether the piece is white or black
+                document.getElementById((parseInt(id.charAt(0)) - 1) + "" + (parseInt(id.charAt(1)) - 1)).style.background = "lightgreen";//sets the tile background to green if the piece is black , it indicates that is is a legal move
+                moves[moves.length] = ((parseInt(id.charAt(0)) - 1) + "" + (parseInt(id.charAt(1)) - 1));
+            } 
+        }
+    }
+    //bottom right diagonal 
+    if (((!(parseInt(id.charAt(0)) - 1 < 0)))) {//this checks whether the left diagonal tile is not out of board range
+        if (board[parseInt(id.charAt(0)) - 1][parseInt((id.charAt(1)) + 1)] === 0) {//this checks whether there is a piece or not on the left diagonal tile from the selected piece
+            document.getElementById((parseInt(id.charAt(0)) - 1) + "" + (parseInt(id.charAt(1)) + 1)).style.background = "lightgreen";//sets the tile background to green if the piece is black , it indicates that is is a legal move
+            moves[moves.length] = ((parseInt(id.charAt(0)) - 1) + "" + (parseInt(id.charAt(1)) + 1));
+        }
+        //check whether there is a black or white piece on the tile left diagonal
+        if (isWhite) {
+            if (BPieces.includes(board[parseInt(id.charAt(0)) - 1][parseInt((id.charAt(1)) + 1)])) {//this checks whether the piece is white or black
+                document.getElementById((parseInt(id.charAt(0)) - 1) + "" + (parseInt(id.charAt(1)) + 1)).style.background = "lightgreen";//sets the tile background to green if the piece is black , it indicates that is is a legal move
+                moves[moves.length] = ((parseInt(id.charAt(0)) - 1) + "" + (parseInt(id.charAt(1)) + 1));
+            }
+        }
+        else {
+            if (WPieces.includes(board[parseInt(id.charAt(0)) - 1][parseInt((id.charAt(1)) + 1)])) {//this checks whether the piece is white or black
+                document.getElementById((parseInt(id.charAt(0)) - 1) + "" + (parseInt(id.charAt(1)) + 1)).style.background = "lightgreen";//sets the tile background to green if the piece is black , it indicates that is is a legal move
+                moves[moves.length] = ((parseInt(id.charAt(0)) - 1) + "" + (parseInt(id.charAt(1)) + 1));
+            } 
+        }
+    }
+    //tile straight down
+    if (((!(parseInt(id.charAt(0)) - 1 < 0)))) {//this checks whether the left diagonal tile is not out of board range
+        if (board[parseInt(id.charAt(0)) - 1][parseInt((id.charAt(1)))] === 0) {//this checks whether there is a piece or not on the tile straight ahead from the selected piece
+            document.getElementById((parseInt(id.charAt(0)) - 1) + "" + (parseInt(id.charAt(1)))).style.background = "lightgreen";//sets the tile background to green if the piece is black , it indicates that is is a legal move
+            moves[moves.length] = ((parseInt(id.charAt(0)) - 1) + "" + (parseInt(id.charAt(1)) - 1));
+        }
+        //check whether there is a black or white piece on the tile straight ahead 
+        if (isWhite) {
+            if (BPieces.includes(board[parseInt(id.charAt(0)) - 1][parseInt((id.charAt(1)))])) {//this checks whether the piece is white or black
+                document.getElementById((parseInt(id.charAt(0)) - 1) + "" + (parseInt(id.charAt(1)))).style.background = "lightgreen";//sets the tile background to green if the piece is black , it indicates that is is a legal move
+                moves[moves.length] = ((parseInt(id.charAt(0)) - 1) + "" + (parseInt(id.charAt(1))));
+            }
+        }
+        else {
+            if (WPieces.includes(board[parseInt(id.charAt(0)) - 1][parseInt((id.charAt(1)))])) {//this checks whether the piece is white or black
+                document.getElementById((parseInt(id.charAt(0)) - 1) + "" + (parseInt(id.charAt(1)))).style.background = "lightgreen";//sets the tile background to green if the piece is black , it indicates that is is a legal move
+                moves[moves.length] = ((parseInt(id.charAt(0)) - 1) + "" + (parseInt(id.charAt(1))));
+            } 
+        }
+    }
+
+    if (moves.length === 0) {
+        return;
+    }
+    else {
+        if (isWhite) {
+
+            var onClick = function (event) {
+
+                globalOnClick(event, moves, id, onClick, WKing);
+            }
+            $(".square").click(onClick);
+            clicked = true;
+        }
+        else {
+            var onClick = function (event) {
+                globalOnClick(event, moves, id, onClick, BKing);
+            }
+            $(".square").click(onClick);
+            clicked = true;
+        }
+    }
+}
+
+   
+var MoveQueen = function (id, isWhite) {
+    let moves = [];
+    //check for above left diagonal for legal moves
+    for (let i = 1; i <= 7; i++) {
+        if (!(((parseInt(id.charAt(0))) + i) > 7) && !(((parseInt(id.charAt(1))) - i) < 0)) {//checks whether the top left diagonal is out of range
+
+            if (board[parseInt(id.charAt(0)) + i][parseInt((id.charAt(1))) - i] === 0) {
+                document.getElementById((parseInt(id.charAt(0)) + i) + "" + ((parseInt(id.charAt(1))) - i)).style.background = "lightgreen";
+                moves[moves.length] = (parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)) - i);
+            }
+            if (board[parseInt(id.charAt(0)) + i][parseInt((id.charAt(1))) - i] !== 0) {
+                if (isWhite) {
+                    if (BPieces.includes(board[parseInt(id.charAt(0)) + i][parseInt((id.charAt(1))) - i])) {
+                        document.getElementById((parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)) - i)).style.background = "lightgreen";
+                        moves[moves.length] = (parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)) - i);
+                        i = 8;
+                    }
+                    else {
+                        i = 8;
+                    }
+                }
+                else {
+                    if (WPieces.includes(board[parseInt(id.charAt(0)) + i][parseInt((id.charAt(1))) - i])) {
+                        document.getElementById((parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)) - i)).style.background = "lightgreen";
+                        moves[moves.length] = (parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)) - i);
+                        i = 8;
+                    }
+                    else {
+                        i = 8;
+                    }
+                }
+            }
+
+        }
+
+    }
+    //check for left down diagonal possible tiles
+    for (let i = 1; i <= 7; i++) {
+        if (!(((parseInt(id.charAt(0))) - i) < 0) && !(((parseInt(id.charAt(1))) - i) < 0)) {//checks whether the tile is out of board range
+
+            if (board[parseInt(id.charAt(0)) - i][parseInt((id.charAt(1))) - i] === 0) {
+                document.getElementById((parseInt(id.charAt(0)) - i) + "" + ((parseInt(id.charAt(1))) - i)).style.background = "lightgreen";
+                moves[moves.length] = (parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)) - i);
+            }
+            if (board[parseInt(id.charAt(0)) - i][parseInt((id.charAt(1))) - i] !== 0) {
+                if (isWhite) {
+                    if (BPieces.includes(board[parseInt(id.charAt(0)) - i][parseInt((id.charAt(1))) - i])) {
+                        document.getElementById((parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)) - i)).style.background = "lightgreen";
+                        moves[moves.length] = (parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)) - i);
+                        i = 8;
+                    }
+                    else {
+                        i = 8;
+                    }
+                }
+                else {
+                    if (WPieces.includes(board[parseInt(id.charAt(0)) - i][parseInt((id.charAt(1))) - i])) {
+                        document.getElementById((parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)) - i)).style.background = "lightgreen";
+                        moves[moves.length] = (parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)) - i);
+                        i = 8;
+                    }
+                    else {
+                        i = 8;
+                    }
+                }
+            }
+
+        }
+
+    }
+    //check top right diagonal free tiles
+    for (let i = 1; i <= 7; i++) {
+        if (!(((parseInt(id.charAt(0))) + i) > 7) && !(((parseInt(id.charAt(1))) + i) > 7)) {//checks whether the top right diagonal tiles are out of board range
+
+            if (board[parseInt(id.charAt(0)) + i][parseInt((id.charAt(1))) + i] === 0) {
+                document.getElementById((parseInt(id.charAt(0)) + i) + "" + ((parseInt(id.charAt(1))) + i)).style.background = "lightgreen";
+                moves[moves.length] = (parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)) + i);
+            }
+            if (board[parseInt(id.charAt(0)) + i][parseInt((id.charAt(1))) + i] !== 0) {
+                if (isWhite) {
+                    if (BPieces.includes(board[parseInt(id.charAt(0)) + i][parseInt((id.charAt(1))) + i])) {
+                        document.getElementById((parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)) + i)).style.background = "lightgreen";
+                        moves[moves.length] = (parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)) + i);
+                        i = 8;
+                    }
+                    else {
+                        i = 8;
+                    }
+                }
+                else {
+                    if (WPieces.includes(board[parseInt(id.charAt(0)) + i][parseInt((id.charAt(1))) + i])) {
+                        document.getElementById((parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)) + i)).style.background = "lightgreen";
+                        moves[moves.length] = (parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)) + i);
+                        i = 8;
+                    }
+                    else {
+                        i = 8;
+                    }
+                }
+            }
+
+        }
+
+    }
+    //check bottom right diagonal free tiles
+    for (let i = 1; i <= 7; i++) {
+        if (!(((parseInt(id.charAt(0))) - i) < 0) && !(((parseInt(id.charAt(1))) + i) > 7)) {//checks whether the bottom right diagonal tiles are out of board range
+
+            if (board[parseInt(id.charAt(0)) - i][parseInt((id.charAt(1))) + i] === 0) {
+                document.getElementById((parseInt(id.charAt(0)) - i) + "" + ((parseInt(id.charAt(1))) + i)).style.background = "lightgreen";
+                moves[moves.length] = (parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)) + i);
+            }
+            if (board[parseInt(id.charAt(0)) - i][parseInt((id.charAt(1))) + i] !== 0) {
+                if (isWhite) {
+                    if (BPieces.includes(board[parseInt(id.charAt(0)) - i][parseInt((id.charAt(1))) + i])) {
+                        document.getElementById((parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)) + i)).style.background = "lightgreen";
+                        moves[moves.length] = (parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)) + i);
+                        i = 8;
+                    }
+                    else {
+                        i = 8;
+                    }
+                }
+                else {
+                    if (WPieces.includes(board[parseInt(id.charAt(0)) - i][parseInt((id.charAt(1))) + i])) {
+                        document.getElementById((parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)) + i)).style.background = "lightgreen";
+                        moves[moves.length] = (parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)) + i);
+                        i = 8;
+                    }
+                    else {
+                        i = 8;
+                    }
+                }
+            }
+
+        }
+
+    }
+    //check for tiles above the rook for legal moves
+    for (let i = 1; i <= 7; i++) {
+        if (!(((parseInt(id.charAt(0))) + i) > 7)) {//checks whether the tile(s) above the rook are out of board range
+
+            if (board[parseInt(id.charAt(0)) + i][parseInt((id.charAt(1)))] === 0) {
+                document.getElementById((parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)))).style.background = "lightgreen";
+                moves[moves.length] = (parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)));
+            }
+            if (board[parseInt(id.charAt(0)) + i][parseInt((id.charAt(1)))] !== 0) {
+                if (isWhite) {
+                    if (BPieces.includes(board[parseInt(id.charAt(0)) + i][parseInt((id.charAt(1)))])) {
+                        document.getElementById((parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)))).style.background = "lightgreen";
+                        moves[moves.length] = (parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)));
+                        i = 8;
+                    }
+                    else {
+                        i = 8;
+                    }
+                }
+                else {
+                    if (WPieces.includes(board[parseInt(id.charAt(0)) + i][parseInt((id.charAt(1)))])) {
+                        document.getElementById((parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)))).style.background = "lightgreen";
+                        moves[moves.length] = (parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)));
+                        i = 8;
+                    }
+                    else {
+                        i = 8;
+                    }
+                }
+            }
+
+        }
+
+    }
+
+
+
+    //check for tiles below the rook that are legal moves
+    for (let i = 1; i <= 7; i++) {
+        if (!(((parseInt(id.charAt(0))) - i) < 0)) {//checks whether the tile(s) below the rook are out of board range
+            if (board[parseInt(id.charAt(0)) - i][parseInt((id.charAt(1)))] === 0) {
+                document.getElementById((parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)))).style.background = "lightgreen";
+                moves[moves.length] = (parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)));
+            }
+            if (board[parseInt(id.charAt(0)) - i][parseInt((id.charAt(1)))] !== 0) {
+                if (isWhite) {
+                    if (BPieces.includes(board[parseInt(id.charAt(0)) - i][parseInt((id.charAt(1)))])) {
+                        document.getElementById((parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)))).style.background = "lightgreen";
+                        moves[moves.length] = (parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)));
+                        i = 8;
+                    }
+                    else {
+                        i = 8;
+                    }
+                }
+                else {
+                    if (WPieces.includes(board[parseInt(id.charAt(0)) - i][parseInt((id.charAt(1)))])) {
+                        document.getElementById((parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)))).style.background = "lightgreen";
+                        moves[moves.length] = (parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)));
+                        i = 8;
+                    }
+                    else {
+                        i = 8;
+                    }
+                }
+            }
+
+        }
+    }
+
+    //check for tiles to the left of the rook for legal moves
+    for (let i = 1; i <= 7; i++) {
+        if (!(((parseInt(id.charAt(1))) - i) < 0)) {//checks whether the tile(s) left of the rook are out of board range
+            if (board[parseInt(id.charAt(0))][parseInt((id.charAt(1))) - i] === 0) {
+                document.getElementById((parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) - i)).style.background = "lightgreen";
+                moves[moves.length] = (parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) - i);
+            }
+            if (board[parseInt(id.charAt(0))][parseInt((id.charAt(1)) - i)] !== 0) {
+                if (isWhite) {
+                    if (BPieces.includes(board[parseInt(id.charAt(0))][parseInt((id.charAt(1))) - i])) {
+                        document.getElementById((parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) - i)).style.background = "lightgreen";
+                        moves[moves.length] = (parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) - i);
+                        i = 8;
+                    }
+                    else {
+                        i = 8;
+                    }
+                }
+                else {
+                    if (WPieces.includes(board[parseInt(id.charAt(0))][parseInt((id.charAt(1))) - i])) {
+                        document.getElementById((parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) - i)).style.background = "lightgreen";
+                        moves[moves.length] = (parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) - i);
+                        i = 8;
+                    }
+                    else {
+                        i = 8;
+                    }
+                }
+            }
+
+        }
+    }
+
+    //check for tiles right of the rook that are legal moves
+    for (let i = 1; i <= 7; i++) {
+        if (!(((parseInt(id.charAt(1))) + i) > 7)) {//checks whether the tile(s) right of the rook are out of board range
+            if (board[parseInt(id.charAt(0))][parseInt((id.charAt(1))) + i] === 0) {
+                document.getElementById((parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) + i)).style.background = "lightgreen";
+                moves[moves.length] = (parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) + i);
+            }
+            if (board[parseInt(id.charAt(0))][parseInt(id.charAt(1)) + i] !== 0) {
+
+                if (isWhite) {
+                    if (BPieces.includes(board[parseInt(id.charAt(0))][parseInt((id.charAt(1))) + i])) {
+                        document.getElementById((parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) + i)).style.background = "lightgreen";
+                        moves[moves.length] = (parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) + i);
+                        i = 8;
+                    }
+                    else {
+                        i = 8;
+                    }
+                }
+                else {
+                    if (WPieces.includes(board[parseInt(id.charAt(0))][parseInt((id.charAt(1))) + i])) {
+                        document.getElementById((parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) + i)).style.background = "lightgreen";
+                        moves[moves.length] = (parseInt(id.charAt(0))) + "" + (parseInt(id.charAt(1)) + i);
+                        i = 8;
+                    }
+                    else {
+                        i = 8;
+                    }
+                }
+            }
+        }
+    }
+
+    if (moves.length === 0) {
+        return;
+    }
+    else {
+        if (isWhite) {
+
+            var onClick = function (event) {
+
+                globalOnClick(event, moves, id, onClick, WQueen);
+            }
+            $(".square").click(onClick);
+            clicked = true;
+        }
+        else {
+            var onClick = function (event) {
+                globalOnClick(event, moves, id, onClick, BQueen);
+            }
+            $(".square").click(onClick);
+            clicked = true;
+        }
+    }
+}
+
+
+
+var MoveBishop = function (id, isWhite) {
+    let moves = [];
+    //check for above left diagonal for legal moves
+    for (let i = 1; i <= 7; i++) {
+        if (!(((parseInt(id.charAt(0))) + i) > 7) && !(((parseInt(id.charAt(1))) - i) < 0)) {//checks whether the top left diagonal is out of range
+
+            if (board[parseInt(id.charAt(0)) + i][parseInt((id.charAt(1))) - i] === 0) {
+                document.getElementById((parseInt(id.charAt(0)) + i) + "" + ((parseInt(id.charAt(1))) - i)).style.background = "lightgreen";
+                moves[moves.length] = (parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)) - i);
+            }
+            if (board[parseInt(id.charAt(0)) + i][parseInt((id.charAt(1))) - i] !== 0) {
+                if (isWhite) {
+                    if (BPieces.includes(board[parseInt(id.charAt(0)) + i][parseInt((id.charAt(1))) - i])) {
+                        document.getElementById((parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)) - i)).style.background = "lightgreen";
+                        moves[moves.length] = (parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)) - i);
+                        i = 8;
+                    }
+                    else {
+                        i = 8;
+                    }
+                }
+                else {
+                    if (WPieces.includes(board[parseInt(id.charAt(0)) + i][parseInt((id.charAt(1))) - i])) {
+                        document.getElementById((parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)) - i)).style.background = "lightgreen";
+                        moves[moves.length] = (parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)) - i);
+                        i = 8;
+                    }
+                    else {
+                        i = 8;
+                    }
+                }
+            }
+
+        }
+
+    }
+    //check for left down diagonal possible tiles
+    for (let i = 1; i <= 7; i++) {
+        if (!(((parseInt(id.charAt(0))) - i) < 0) && !(((parseInt(id.charAt(1))) - i) < 0)) {//checks whether the tile is out of board range
+
+            if (board[parseInt(id.charAt(0)) - i][parseInt((id.charAt(1))) - i] === 0) {
+                document.getElementById((parseInt(id.charAt(0)) - i) + "" + ((parseInt(id.charAt(1))) - i)).style.background = "lightgreen";
+                moves[moves.length] = (parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)) - i);
+            }
+            if (board[parseInt(id.charAt(0)) - i][parseInt((id.charAt(1))) - i] !== 0) {
+                if (isWhite) {
+                    if (BPieces.includes(board[parseInt(id.charAt(0)) - i][parseInt((id.charAt(1))) - i])) {
+                        document.getElementById((parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)) - i)).style.background = "lightgreen";
+                        moves[moves.length] = (parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)) - i);
+                        i = 8;
+                    }
+                    else {
+                        i = 8;
+                    }
+                }
+                else {
+                    if (WPieces.includes(board[parseInt(id.charAt(0)) - i][parseInt((id.charAt(1))) - i])) {
+                        document.getElementById((parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)) - i)).style.background = "lightgreen";
+                        moves[moves.length] = (parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)) - i);
+                        i = 8;
+                    }
+                    else {
+                        i = 8;
+                    }
+                }
+            }
+
+        }
+
+    }
+    //check top right diagonal free tiles
+    for (let i = 1; i <= 7; i++) {
+        if (!(((parseInt(id.charAt(0))) + i) > 7) && !(((parseInt(id.charAt(1))) + i) > 7)) {//checks whether the top right diagonal tiles are out of board range
+
+            if (board[parseInt(id.charAt(0)) + i][parseInt((id.charAt(1))) + i] === 0) {
+                document.getElementById((parseInt(id.charAt(0)) + i) + "" + ((parseInt(id.charAt(1))) + i)).style.background = "lightgreen";
+                moves[moves.length] = (parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)) + i);
+            }
+            if (board[parseInt(id.charAt(0)) + i][parseInt((id.charAt(1))) + i] !== 0) {
+                if (isWhite) {
+                    if (BPieces.includes(board[parseInt(id.charAt(0)) + i][parseInt((id.charAt(1))) + i])) {
+                        document.getElementById((parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)) + i)).style.background = "lightgreen";
+                        moves[moves.length] = (parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)) + i);
+                        i = 8;
+                    }
+                    else {
+                        i = 8;
+                    }
+                }
+                else {
+                    if (WPieces.includes(board[parseInt(id.charAt(0)) + i][parseInt((id.charAt(1))) + i])) {
+                        document.getElementById((parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)) + i)).style.background = "lightgreen";
+                        moves[moves.length] = (parseInt(id.charAt(0)) + i) + "" + (parseInt(id.charAt(1)) + i);
+                        i = 8;
+                    }
+                    else {
+                        i = 8;
+                    }
+                }
+            }
+
+        }
+
+    }
+    //check bottom right diagonal free tiles
+    for (let i = 1; i <= 7; i++) {
+        if (!(((parseInt(id.charAt(0))) - i) < 0) && !(((parseInt(id.charAt(1))) + i) > 7)) {//checks whether the bottom right diagonal tiles are out of board range
+
+            if (board[parseInt(id.charAt(0)) - i][parseInt((id.charAt(1))) + i] === 0) {
+                document.getElementById((parseInt(id.charAt(0)) - i) + "" + ((parseInt(id.charAt(1))) + i)).style.background = "lightgreen";
+                moves[moves.length] = (parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)) + i);
+            }
+            if (board[parseInt(id.charAt(0)) - i][parseInt((id.charAt(1))) + i] !== 0) {
+                if (isWhite) {
+                    if (BPieces.includes(board[parseInt(id.charAt(0)) - i][parseInt((id.charAt(1))) + i])) {
+                        document.getElementById((parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)) + i)).style.background = "lightgreen";
+                        moves[moves.length] = (parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)) + i);
+                        i = 8;
+                    }
+                    else {
+                        i = 8;
+                    }
+                }
+                else {
+                    if (WPieces.includes(board[parseInt(id.charAt(0)) - i][parseInt((id.charAt(1))) + i])) {
+                        document.getElementById((parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)) + i)).style.background = "lightgreen";
+                        moves[moves.length] = (parseInt(id.charAt(0)) - i) + "" + (parseInt(id.charAt(1)) + i);
+                        i = 8;
+                    }
+                    else {
+                        i = 8;
+                    }
+                }
+            }
+
+        }
+
+    }
+
+
+
+    if (moves.length === 0) {
+        return;
+    }
+    else {
+        if (isWhite) {
+
+            var onClick = function (event) {
+
+                globalOnClick(event, moves, id, onClick, WBishop);
+            }
+            $(".square").click(onClick);
+            clicked = true;
+        }
+        else {
+            var onClick = function (event) {
+                globalOnClick(event, moves, id, onClick, BBishop);
+            }
+            $(".square").click(onClick);
+            clicked = true;
+        }
+    }
+}
+
 
 var MoveRook = function (id, isWhite) {
     let moves = [];
