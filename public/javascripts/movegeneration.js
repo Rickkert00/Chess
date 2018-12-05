@@ -53,12 +53,12 @@ var globalOnClick = function (event, moves, id, onClick, piece) {
                 board[parseInt(event.target.id.charAt(0))][parseInt(event.target.id.charAt(1))] = piece;
 
                 //Check If White pawn and needs promotion
-                if(piece==="&#9817;" && parseInt(event.target.id.charAt(0))===7){
+                if (piece === "&#9817;" && parseInt(event.target.id.charAt(0)) === 7) {
                     board[parseInt(event.target.id.charAt(0))][parseInt(event.target.id.charAt(1))] = promotion(true);
                 }
-                if(piece==="&#9823;" && parseInt(event.target.id.charAt(0))===0){
+                if (piece === "&#9823;" && parseInt(event.target.id.charAt(0)) === 0) {
                     board[parseInt(event.target.id.charAt(0))][parseInt(event.target.id.charAt(1))] = promotion(false);
-                } 
+                }
 
                 board[parseInt(id.charAt(0))][parseInt(id.charAt(1))] = 0;
                 initialplacement();
@@ -90,28 +90,23 @@ var globalOnClick = function (event, moves, id, onClick, piece) {
 
 //Promotion Method for Pawns:
 var promotion = function (isWhite) {
-    var choice = prompt("Please Enter The Name Of The Piece You Want\n Start with Capital Eg: Queen", "Pawn");
+    var choice = prompt("Please Enter The Name Of The Piece You Want\n You can't choose King!\n Start with Capital Eg: Queen", "Pawn");
     if (isWhite) {
         choice = "W" + choice;
     }
     else {
         choice = "B" + choice;
     }
-    console.log("The Chosen Piece: "+choice);
-    console.log("Unicode: "+window[choice]);
+    console.log("The Chosen Piece: " + choice);
+    console.log("Unicode: " + window[choice]);
     //Check for Valid input
-    if (choice === null || choice === "" || (!(WPieces.includes(window[choice]))&&!(BPieces.includes(window[choice])))) {
+    if (choice === "WKing" || choice === "BKing" || (!(WPieces.includes(window[choice])) && !(BPieces.includes(window[choice])))) {
         alert("K, You trying to break the game?\n Nice Try....");
-        if(isWhite){
-            return WPawn;
-        }
-        else{
-            return BPawn;
-        }
+        return promotion(isWhite);
     }
-    else{
-        console.log("Promotion to: " +choice);
-        alert("Your Piece is Now A: "+choice+"!");
+    else {
+        console.log("Promotion to: " + choice);
+        alert("Your Piece is Now A: " + choice + "!");
         return window[choice];
     }
 }
