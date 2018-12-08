@@ -20,18 +20,20 @@ app.get("/", function(req, res) {
     res.sendFile("splash.html", {root: "./public"});
 });
 
-var websockets = [];//property: websocket, value: game
+var websockets = [];
 
 
 wss.on('connection', function(ws) {
+    //checks whether a client has made a move
     ws.on('message', function(message) {
         if (websockets[JSON.parse(message).id].gameState === "GAME IS LIVE") {
-          
+          //if white made a move then pass it along to other client
         websockets[JSON.parse(message).id].gameState = "WHITE MOVED";
         websockets[JSON.parse(message).id].data = JSON.parse(message).board;
         websockets[JSON.parse(message).id].websocket1.send(JSON.stringify(websockets[JSON.parse(message).id]));
         websockets[JSON.parse(message).id].websocket2.send(JSON.stringify(websockets[JSON.parse(message).id]));
         }
+        //if black made a move then pass it along to other client
         else if (websockets[JSON.parse(message).id].gameState === "WHITE MOVED") {
             websockets[JSON.parse(message).id].gameState = "BLACK MOVED";
             websockets[JSON.parse(message).id].data = JSON.parse(message).board;
@@ -41,6 +43,7 @@ wss.on('connection', function(ws) {
       });
     
     if (clientid % 2 === 0) {
+        //generates a new game and sets the gamestate to waiting for players
     websockets.push({websocket1: ws, websocket2: null, playerWhite: clientid, playerBlack: null, id: gameid, gameState: "WAITING FOR PLAYERS", data: null});
     websockets[gameid].websocket1.send(JSON.stringify(websockets[gameid]));
     gameid++;
@@ -48,8 +51,7 @@ wss.on('connection', function(ws) {
     
     }
     else {
-        console.log(gameid);
-        console.log(websockets[gameid-1].playerBlack);
+        //pairs the 2nd player with the first so they are in the same game
         websockets[gameid-1].playerBlack = clientid;
         websockets[gameid-1].websocket2 = ws;
         websockets[gameid-1].gameState = "GAME IS LIVE";
