@@ -31,7 +31,6 @@ var board = [[WRook, WKnight, WBishop, WQueen, WKing, WBishop, WKnight, WRook],
 
 //This function creates a board with tiles 
 var buildboard = function () {
-
     //Loop that creates Rows
     for (let i = 7; i >= 0; i--) {
         var divRow = $("<div>", {
