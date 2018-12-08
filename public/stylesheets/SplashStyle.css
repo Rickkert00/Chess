@@ -21,6 +21,8 @@ body{
     position: relative;
     width: 400px;
     top: 17px;
+    transform: translateY(50%);
+    transform: translateX(50%);
 }
 
 .button2{
@@ -28,6 +30,8 @@ body{
     width: 400px;
     top: -60px;
     right: -550px;
+    transform: translateY(50%);
+    transform: translateX(50%);
 }
 
 .play {
