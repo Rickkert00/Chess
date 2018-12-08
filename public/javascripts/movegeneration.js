@@ -1,4 +1,33 @@
 var clicked = false;
+var turn = false;
+var socket = new WebSocket("ws://localhost:3000");
+var gameid = null;
+socket.onmessage = function(event) {
+    processMove(event);
+}
+
+var processMove = function(event) {
+    if (JSON.parse(event.data).gameState === "WAITING FOR PLAYERS") {
+        document.getElementById("topmiddle").innerHTML = JSON.parse(event.data).gameState;
+        turn = true;
+        gameid = JSON.parse(event.data).id;
+    }
+    if (JSON.parse(event.data).gameState === "GAME IS LIVE") {
+        alert("GAME IS LIVE");
+        document.getElementById("topmiddle").innerHTML = JSON.parse(event.data).gameState;
+        gameid = JSON.parse(event.data).id;
+    }
+    if (JSON.parse(event.data).gameState === "BLACK MOVED") {
+        document.getElementById("topmiddle").innerHTML = JSON.parse(event.data).gameState;
+        board = JSON.parse(event.data).data;
+        initialplacement();
+    }
+    if (JSON.parse(event.data).gameState === "WHITE MOVED") {
+        board = JSON.parse(event.data).data;
+        document.getElementById("topmiddle").innerHTML = JSON.parse(event.data).gameState;
+        initialplacement();
+    }
+}
 //add white or black turn selection into switch statement
 var select = function () {
     $(".square").click(function (event) {
@@ -43,6 +72,7 @@ var globalOnClick = function (event, moves, id, onClick, piece) {
     if (clicked) {
         for (let i = 0; i < moves.length; i++) {
             if (event.target.id === moves[i]) {
+                if (turn === true) {
                 clicked = false;
                 board[parseInt(event.target.id.charAt(0))][parseInt(event.target.id.charAt(1))] = piece;
 
@@ -63,9 +93,13 @@ var globalOnClick = function (event, moves, id, onClick, piece) {
                         document.getElementById(moves[j]).style.background = "gray";
                     }
                 }
+                turn = false;
+                var clientdata = {board: board, id: gameid};
+                socket.send(JSON.stringify(clientdata));
                 $(".square").unbind("click", onClick);
                 return;
             }
+        }
 
         }
         for (let j = 0; j < moves.length; j++) {
@@ -77,6 +111,7 @@ var globalOnClick = function (event, moves, id, onClick, piece) {
             clicked = false;
         }
     }
+
     $(".square").unbind("click", onClick);
 }
 

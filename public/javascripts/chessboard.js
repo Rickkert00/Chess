@@ -77,10 +77,6 @@ function playAudio() {
     audio1.play();
 }
 
-
-
-
-
 //Main Method:
 buildboard();
 initialplacement();
