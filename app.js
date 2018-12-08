@@ -40,20 +40,22 @@ wss.on('connection', function(ws) {
         }
       });
     
-    if (clientid % 2 == 0) {
+    if (clientid % 2 === 0) {
     websockets.push({websocket1: ws, websocket2: null, playerWhite: clientid, playerBlack: null, id: gameid, gameState: "WAITING FOR PLAYERS", data: null});
+    websockets[gameid].websocket1.send(JSON.stringify(websockets[gameid]));
     gameid++;
     clientid++;
-    websockets[clientid-1].websocket1.send(JSON.stringify(websockets[clientid-1]));
+    
     }
     else {
-        websockets[clientid-1].playerBlack = clientid;
-        websockets[clientid-1].websocket2 = ws;
-        websockets[clientid-1].gameState = "GAME IS LIVE";
-        websockets[clientid-1].websocket1.send(JSON.stringify(websockets[clientid-1]));
-        websockets[clientid-1].websocket2.send(JSON.stringify(websockets[clientid-1]));
+        console.log(gameid);
+        console.log(websockets[gameid-1].playerBlack);
+        websockets[gameid-1].playerBlack = clientid;
+        websockets[gameid-1].websocket2 = ws;
+        websockets[gameid-1].gameState = "GAME IS LIVE";
+        websockets[gameid-1].websocket1.send(JSON.stringify(websockets[gameid-1]));
+        websockets[gameid-1].websocket2.send(JSON.stringify(websockets[gameid-1]));
         clientid++;
-        gameid++;
     }
     
 });
