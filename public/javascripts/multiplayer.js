@@ -1,7 +1,7 @@
 var isWhite = false;
 var turn = false;
 var WTurn= true;
-var socket = new WebSocket("ws://145.94.205.1:3001");
+var socket = new WebSocket("ws://192.168.0.149:3001");
 var gameid = null;
 
 var winner= null;
@@ -31,7 +31,6 @@ var processMove = function (event) {
         document.getElementById("topmiddle").innerHTML = JSON.parse(event.data).gameState;
         board = JSON.parse(event.data).data;
         initialplacement();
-        console.log(JSON.parse(event.data).sWTurn);
         if ((JSON.parse(event.data).sWTurn === true) && (isWhite === true)) {
             turn = true;
             WTurn = true;
@@ -45,7 +44,6 @@ var processMove = function (event) {
         board = JSON.parse(event.data).data;
         document.getElementById("topmiddle").innerHTML = JSON.parse(event.data).gameState;
         initialplacement();
-        console.log(JSON.parse(event.data).sWTurn);
         if ((JSON.parse(event.data).sWTurn === true) && (isWhite === true)) {
             turn = true;
             WTurn = true;

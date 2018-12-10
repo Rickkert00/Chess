@@ -17,7 +17,7 @@ var BQueen = "&#9819;";
 
 var WPieces = [WPawn, WRook, WKnight, WBishop, WQueen, WKing];
 var BPieces = [BPawn, BRook, BKnight, BBishop, BQueen, BKing];
-
+var isFullScreen = false;
 
 var board = [[WRook, WKnight, WBishop, WQueen, WKing, WBishop, WKnight, WRook],
 [WPawn, WPawn, WPawn, WPawn, WPawn, WPawn, WPawn, WPawn],
@@ -76,7 +76,39 @@ var audio1 = document.getElementById("audioID");
 function playAudio() {
     audio1.play();
 }
+//enable fullscreen
+var goFullScreen = function(){
+  $("#goFullScreen").click(function(event) {
+     if (isFullScreen === false){
+            if (document.body.requestFullscreen) {
+                document.body.requestFullscreen();
+            } else if (document.body.mozRequestFullScreen) {
+                document.body.mozRequestFullScreen();
+            } else if (document.body.webkitRequestFullScreen) {
+                document.body.webkitRequestFullScreen();
+            } else if (document.body.msRequestFullscreen) {
+                document.body.msRequestFullscreen();
+            }
+    document.getElementById(event.target.id).innerHTML = "Disable Fullscreen"; 
+    isFullScreen = true;
+     }
+     else if (isFullScreen === true) {
+     if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+    } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+    }
+    document.getElementById(event.target.id).innerHTML = "Enable Fullscreen"; 
+    isFullScreen = false;
+}
+      });
+    };
 
 //Main Method:
 buildboard();
 initialplacement();
+goFullScreen();
