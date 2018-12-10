@@ -1,5 +1,5 @@
 Move Pieces need to be synchronised.    FIXED
 White pawn eating white pawn considered valid.  FIXED
 Can sometimes click on non green valid squares. FIXED
-Highlighting Causes Selection Problems.
-When a enemy is infront of pawn and you call pawn genartion game breaks.
+Highlighting Causes Selection Problems. FIXED
+When a enemy is infront of pawn and you call pawn genartion game breaks. FIXED
