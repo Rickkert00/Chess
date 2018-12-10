@@ -41,7 +41,7 @@ var processMove = function (event) {
             WTrun = true;
         }
         if ((JSON.parse(event.data).sWTurn === false) && (isWhite == false)) {
-            turn = true;\
+            turn = true;
             Wturn = false;
         }
     }
