@@ -28,15 +28,22 @@ wss.on('connection', function(ws) {
     ws.on('message', function(message) {
         if (websockets[JSON.parse(message).id].gameState === "GAME IS LIVE") {
           //if white made a move then pass it along to other client
-        websockets[JSON.parse(message).id].gameState = "WHITE MOVED";
+        websockets[JSON.parse(message).id].gameState = "Blacks Turn";
         websockets[JSON.parse(message).id].data = JSON.parse(message).board;
         websockets[JSON.parse(message).id].sWTurn = JSON.parse(message).WTurn;
         websockets[JSON.parse(message).id].websocket1.send(JSON.stringify(websockets[JSON.parse(message).id]));
         websockets[JSON.parse(message).id].websocket2.send(JSON.stringify(websockets[JSON.parse(message).id]));
         }
         //if black made a move then pass it along to other client
-        else if (websockets[JSON.parse(message).id].gameState === "WHITE MOVED") {
-            websockets[JSON.parse(message).id].gameState = "BLACK MOVED";
+        else if (websockets[JSON.parse(message).id].gameState === "Blacks Turn") {
+            websockets[JSON.parse(message).id].gameState = "Whites Turn";
+            websockets[JSON.parse(message).id].data = JSON.parse(message).board;
+            websockets[JSON.parse(message).id].sWTurn = JSON.parse(message).WTurn;
+            websockets[JSON.parse(message).id].websocket1.send(JSON.stringify(websockets[JSON.parse(message).id]));
+            websockets[JSON.parse(message).id].websocket2.send(JSON.stringify(websockets[JSON.parse(message).id]));
+        }
+        else if (websockets[JSON.parse(message).id].gameState === "Whites Turn") {
+            websockets[JSON.parse(message).id].gameState = "Blacks Turn";
             websockets[JSON.parse(message).id].data = JSON.parse(message).board;
             websockets[JSON.parse(message).id].sWTurn = JSON.parse(message).WTurn;
             websockets[JSON.parse(message).id].websocket1.send(JSON.stringify(websockets[JSON.parse(message).id]));

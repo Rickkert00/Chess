@@ -1,8 +1,16 @@
 var isWhite = false;
 var turn = false;
-var Wturn= true;
-var socket = new WebSocket("ws://145.94.191.4:3001");
+var WTurn= true;
+var socket = new WebSocket("ws://145.94.205.1:3001");
 var gameid = null;
+
+var winner= null;
+
+var gameover = function () {
+    alert("Game Has Ended \nCongratulations to:" + winner);
+    window.location.href = "splash.html";
+}
+
 socket.onmessage = function (event) {
     processMove(event);
 }
@@ -19,30 +27,32 @@ var processMove = function (event) {
         document.getElementById("topmiddle").innerHTML = JSON.parse(event.data).gameState;
         gameid = JSON.parse(event.data).id;
     }
-    if (JSON.parse(event.data).gameState === "BLACK MOVED") {
+    if (JSON.parse(event.data).gameState === "Whites Turn") {
         document.getElementById("topmiddle").innerHTML = JSON.parse(event.data).gameState;
         board = JSON.parse(event.data).data;
         initialplacement();
+        console.log(JSON.parse(event.data).sWTurn);
         if ((JSON.parse(event.data).sWTurn === true) && (isWhite === true)) {
             turn = true;
             WTurn = true;
         }
-        if ((JSON.parse(event.data).sWTurn === false) && (isWhite == false)) {
+        if ((JSON.parse(event.data).sWTurn === false) && (isWhite === false)) {
             turn = true;
-            Wturn = false;
+            WTurn = false;
         }
     }
-    if (JSON.parse(event.data).gameState === "WHITE MOVED") {
+    if (JSON.parse(event.data).gameState === "Blacks Turn") {
         board = JSON.parse(event.data).data;
         document.getElementById("topmiddle").innerHTML = JSON.parse(event.data).gameState;
         initialplacement();
+        console.log(JSON.parse(event.data).sWTurn);
         if ((JSON.parse(event.data).sWTurn === true) && (isWhite === true)) {
             turn = true;
-            WTrun = true;
+            WTurn = true;
         }
-        if ((JSON.parse(event.data).sWTurn === false) && (isWhite == false)) {
+        if ((JSON.parse(event.data).sWTurn === false) && (isWhite === false)) {
             turn = true;
-            Wturn = false;
+            WTurn = false;
         }
     }
 }

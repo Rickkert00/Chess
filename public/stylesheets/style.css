@@ -4,7 +4,7 @@ html {
     margin: 0px; 
   }
 body {
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(201, 141, 69);
     margin: 0px;
     height: 100%;
 }
@@ -69,18 +69,18 @@ main {
     position: relative;
 }
 #ChessPiece{
-    font-size: 50px;
+    font-size: 70px;
     position: relative;
 }
 
 #GameBoard {
     margin: auto;
-    width: 480px;
-    height: 480px;
+    width: 640px;
+    height: 640px;
     border: solid 4px #333;
     position: relative;
     top: 100px;
-    font-size: 50px;
+    font-size: 70px;
     text-align: center;   
   }
   
@@ -90,8 +90,8 @@ main {
   
   .square {
     cursor: default;
-    height: 60px;
-    width: 60px;
+    height: 80px;
+    width: 80px;
     background: #efefef;
     float: left;
 
@@ -105,18 +105,18 @@ main {
 
   }
   .square.white:hover {
-      font-size: 55px !important;
+      font-size: 75px !important;
       vertical-align: middle;
   }
   .square.black:hover {
-    font-size: 55px !important;
+    font-size: 75px !important;
 }
 .square.white:active {
-    font-size: 55px !important;
+    font-size: 75px !important;
     background: lightgreen;
 }
 .square.black:active {
-  font-size: 55px !important;
+  font-size: 75px !important;
   background: lightgreen;
 }
   .square.white {
