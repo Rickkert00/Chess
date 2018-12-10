@@ -30,6 +30,7 @@ wss.on('connection', function(ws) {
           //if white made a move then pass it along to other client
         websockets[JSON.parse(message).id].gameState = "WHITE MOVED";
         websockets[JSON.parse(message).id].data = JSON.parse(message).board;
+        websockets[JSON.parse(message).id].sWTurn = JSON.parse(message).WTurn;
         websockets[JSON.parse(message).id].websocket1.send(JSON.stringify(websockets[JSON.parse(message).id]));
         websockets[JSON.parse(message).id].websocket2.send(JSON.stringify(websockets[JSON.parse(message).id]));
         }
@@ -37,6 +38,7 @@ wss.on('connection', function(ws) {
         else if (websockets[JSON.parse(message).id].gameState === "WHITE MOVED") {
             websockets[JSON.parse(message).id].gameState = "BLACK MOVED";
             websockets[JSON.parse(message).id].data = JSON.parse(message).board;
+            websockets[JSON.parse(message).id].sWTurn = JSON.parse(message).WTurn;
             websockets[JSON.parse(message).id].websocket1.send(JSON.stringify(websockets[JSON.parse(message).id]));
             websockets[JSON.parse(message).id].websocket2.send(JSON.stringify(websockets[JSON.parse(message).id]));
         }
@@ -44,7 +46,7 @@ wss.on('connection', function(ws) {
     
     if (clientid % 2 === 0) {
         //generates a new game and sets the gamestate to waiting for players
-    websockets.push({websocket1: ws, websocket2: null, playerWhite: clientid, playerBlack: null, id: gameid, gameState: "WAITING FOR PLAYERS", data: null});
+    websockets.push({websocket1: ws, websocket2: null, playerWhite: clientid, playerBlack: null, id: gameid, gameState: "WAITING FOR PLAYERS", data: null, sWTurn: true});
     websockets[gameid].websocket1.send(JSON.stringify(websockets[gameid]));
     gameid++;
     clientid++;
