@@ -1,7 +1,7 @@
 var isWhite = false;
 var turn = false;
 var WTurn= true;
-var socket = new WebSocket("ws://192.168.0.149:3001");
+var socket = new WebSocket("ws://145.94.146.95:3001");
 var gameid = null;
 
 var winner= null;
