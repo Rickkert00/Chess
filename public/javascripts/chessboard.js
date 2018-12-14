@@ -77,9 +77,9 @@ function playAudio() {
     audio1.play();
 }
 //enable fullscreen
-var goFullScreen = function(){
-  $("#goFullScreen").click(function(event) {
-     if (isFullScreen === false){
+var goFullScreen = function () {
+    $("#goFullScreen").click(function (event) {
+        if (isFullScreen === false) {
             if (document.body.requestFullscreen) {
                 document.body.requestFullscreen();
             } else if (document.body.mozRequestFullScreen) {
@@ -89,24 +89,24 @@ var goFullScreen = function(){
             } else if (document.body.msRequestFullscreen) {
                 document.body.msRequestFullscreen();
             }
-    document.getElementById(event.target.id).innerHTML = "Disable Fullscreen"; 
-    isFullScreen = true;
-     }
-     else if (isFullScreen === true) {
-     if (document.exitFullscreen) {
-        document.exitFullscreen();
-    } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
-    } else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen();
-    } else if (document.msExitFullscreen) {
-        document.msExitFullscreen();
-    }
-    document.getElementById(event.target.id).innerHTML = "Enable Fullscreen"; 
-    isFullScreen = false;
-}
-      });
-    };
+            document.getElementById(event.target.id).innerHTML = "Disable Fullscreen";
+            isFullScreen = true;
+        }
+        else if (isFullScreen === true) {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+            document.getElementById(event.target.id).innerHTML = "Enable Fullscreen";
+            isFullScreen = false;
+        }
+    });
+};
 
 //Main Method:
 buildboard();

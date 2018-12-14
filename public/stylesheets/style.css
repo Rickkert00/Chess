@@ -1,70 +1,31 @@
 
+*{
+    margin: 0%;
+    padding: 0%;
+}
 html {
     height: 100%; 
     margin: 0px; 
+    max-width: 100%;
   }
 body {
     background-color: rgb(201, 141, 69);
+    background-size: cover;
     margin: 0px;
     height: 100%;
+    max-width: 100%;
 }
 
-
-  #topleft {
-      width: 100%;
-      height: 200px;
-      text-align: left; 
-      margin: auto; 
-  }
-
-  #toplefttext {
-      position: relative;
-      left: 50px;
-      bottom: 25px;
-      
-  }
-  #topright {
-      width: 100%;
-      height: 100px;
-      text-align: right;
-      margin: auto;
-      position: relative;
-  }
-  #toprighttext {
-      position: relative;
-      left: 250px;
-      bottom: 25px;
-  }
-  .GameBoard {
+.GameBoard {
     position: relative; 
     top: 50px; 
     left: 50px;
     bottom: 50px;
     right: 50px;
     text-align: center;
-}
-header {
-    position: relative;
-    display: flex;
-}
-#topleft img {
-    width: 200px;
-    height: 200px;    
+    z-index : 1;
 }
 
-#topright img {
-    margin-top: 0px;
-    
-}
-
-#middle {
-    text-align: center;
-    position: relative;
-}
-#blackbar {
-    width: 100%;
-    background-color: rgb(3, 3, 3);
-}
 main {
     position: relative;
 }
@@ -84,11 +45,11 @@ main {
     text-align: center;   
   }
   
-  #GameBoard .row {
+#GameBoard .row {
     margin: 0;
   }
   
-  .square {
+.square {
     cursor: default;
     height: 80px;
     width: 80px;
@@ -140,12 +101,12 @@ button{
 
 
 
-.fullscreen {
+.gamebutton {
     font-family: Arial, Helvetica, sans-serif; 
     font-weight: bold;
     position: relative;
     vertical-align: top;
-    width: 10%;
+    width: 150px;
     height: 60px;
     padding: 0;
     font-size: 22px;
@@ -159,16 +120,22 @@ button{
     -webkit-box-shadow: inset 0 -2px #2f2e2e;
     box-shadow: inset 0 -2px #2f2e2e;
   }
-  .fullscreen:active {
+  .gamebutton:active {
     top: 2px;
     outline: none;
     -webkit-box-shadow: none;
     box-shadow: none;
   }
 
-  .fullscreen:hover {
+  .gamebutton:hover {
     top: 2px;
     outline: none;
     -webkit-box-shadow: none;
     box-shadow: none;
+  }
+
+  #GameButtons{
+      position: relative;
+      float: right;
+      right: 10%;
   }
