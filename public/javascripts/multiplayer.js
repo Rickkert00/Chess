@@ -6,6 +6,7 @@ var gameid = null;
 
 var winner = null;
 
+
 var gameover = function () {
     alert("Game Has Ended \nCongratulations to:" + winner);
     window.location.href = "splash.html";
