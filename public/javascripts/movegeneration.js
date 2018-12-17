@@ -1,4 +1,5 @@
 var clicked = false;
+var clientdata = null;
 //add white or black turn selection into switch statement
 var select = function () {
     $(".square").click(function (event) {
@@ -83,7 +84,7 @@ var globalOnClick = function (event, moves, id, onClick, piece) {
                     else {
                         WTurn = false;
                     }
-                    var clientdata = { board: board, id: gameid, WTurn: WTurn };
+                    clientdata = { board: board, id: gameid, WTurn: WTurn, calledCheck: isCheck, calledCheckMate: isCheckMate, gameOver: isGameOver, winner: null, isWhite: isWhite};
                     socket.send(JSON.stringify(clientdata));
                     $(".square").unbind("click", onClick);
                     return;

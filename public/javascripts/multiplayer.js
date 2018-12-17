@@ -3,12 +3,17 @@ var turn = false;
 var WTurn = true;
 var socket = new WebSocket("ws://192.168.0.149:3001");
 var gameid = null;
-
 var winner = null;
-
+var isCheck = false;
+var isCheckMate = false;
+var isGameOver = false;
+var state;
 
 var gameover = function () {
-    alert("Game Has Ended \nCongratulations to:" + winner);
+    alert("Game Has Ended \nCongratulations to: " + winner);
+    isGameOver = true;
+    clientdata = { board: board, id: gameid, WTurn: WTurn, calledCheck: isCheck, calledCheckMate: isCheckMate, gameOver: isGameOver, winner: winner, isWhite: isWhite, ContinueState: state };
+    socket.send(JSON.stringify(clientdata));
     window.location.href = "splash.html";
 }
 
@@ -16,17 +21,9 @@ var gameover = function () {
 var callCheckMate = function () {
     $("#CheckMate").click(function (event) {
         alert("Waiting For Opponent To Accept CheckMate...");
-        if (winRequest()) {
-            if (true) {
-                winner = "Black";
-            }
-            else {
-                winner = "White";
-            }
-        }
-        else {
-            alert("Enemy Has Rejected Your CheckMate");
-        }
+        isCheckMate = true;
+        clientdata = { board: board, id: gameid, WTurn: WTurn, calledCheck: isCheck, calledCheckMate: isCheckMate, gameOver: isGameOver, winner: winner, isWhite: isWhite, ContinueState: state };
+        socket.send(JSON.stringify(clientdata));
     })
 }
 
@@ -40,12 +37,8 @@ var callCheck = function (iswhite) {
 
 //Helper function for Checkmate and GameOver
 var winRequest = function () {
-    if (confirm("Your Opponent Has Called CheckMate Do You Accept?")) {
-        return true;
-    }
-    else {
-        return false;
-    }
+    var accept = confirm("Your Opponent Has Called CheckMate Do You Accept?");
+    return accept;
 }
 
 socket.onmessage = function (event) {
@@ -58,11 +51,13 @@ var processMove = function (event) {
         gameid = JSON.parse(event.data).id;
         isWhite = true;
         turn = true;
+        state = "WAITING FOR PLAYERS";
     }
     if (JSON.parse(event.data).gameState === "GAME IS LIVE") {
         alert("GAME IS LIVE");
         document.getElementById("topmiddle").innerHTML = JSON.parse(event.data).gameState;
         gameid = JSON.parse(event.data).id;
+        state = "Blacks Turn";
     }
     if (JSON.parse(event.data).gameState === "Whites Turn") {
         document.getElementById("topmiddle").innerHTML = JSON.parse(event.data).gameState;
@@ -76,6 +71,7 @@ var processMove = function (event) {
             turn = true;
             WTurn = false;
         }
+        state = "Blacks Turn";
     }
     if (JSON.parse(event.data).gameState === "Blacks Turn") {
         board = JSON.parse(event.data).data;
@@ -89,8 +85,37 @@ var processMove = function (event) {
             turn = true;
             WTurn = false;
         }
+        state = "Whites Turn";
+    }
+    if (JSON.parse(event.data).gameState === "calledCheckMate") {
+        console.log("HI");
+        let accept = winRequest();
+        if (accept) {
+            if (isWhite) {
+                winner = "White";
+            }
+            else {
+                winner = "Black";
+            }
+            gameover();
+        }
+        else {
+            clientdata = { board: board, id: gameid, WTurn: WTurn, calledCheck: isCheck, calledCheckMate: isCheckMate, gameOver: isGameOver, winner: winner, isWhite: isWhite, ContinueState: state };
+            socket.send(JSON.stringify(clientdata));
+        }
+    }
+    if (JSON.parse(event.data).gameState === "deniedCheckMate") {
+        isCheckMate = false;
+        alert("Enemy Has Rejected Your CheckMate");
+        clientdata = { board: board, id: gameid, WTurn: WTurn, calledCheck: isCheck, calledCheckMate: isCheckMate, gameOver: isGameOver, winner: winner, isWhite: isWhite, ContinueState: state};
+        socket.send(JSON.stringify(clientdata));
+    }
+    if (JSON.parse(event.data).gameState === "Game Ended") {
+        alert("Game Has Ended \nCongratulations to: " + JSON.parse(event.data).swinner);
+        window.location.href = "splash.html";
     }
 }
+
 
 
 //Main Method 3
