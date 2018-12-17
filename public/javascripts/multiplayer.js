@@ -30,7 +30,11 @@ var callCheckMate = function () {
 var callCheck = function (iswhite) {
 
     $("#Check").click(function (event) {
-        alert("Opponent Has Called Check!");
+        isCheck = true;
+        clientdata = { board: board, id: gameid, WTurn: WTurn, calledCheck: isCheck, calledCheckMate: isCheckMate, gameOver: isGameOver, winner: winner, isWhite: isWhite, ContinueState: state };
+        socket.send(JSON.stringify(clientdata));
+        isCheck = false;
+    
     })
 
 }
@@ -113,6 +117,10 @@ var processMove = function (event) {
     if (JSON.parse(event.data).gameState === "Game Ended") {
         alert("Game Has Ended \nCongratulations to: " + JSON.parse(event.data).swinner);
         window.location.href = "splash.html";
+    }
+     if (JSON.parse(event.data).gameState === "calledCheck") {
+        alert("Opponent Has Called Check!");
+        socket.send(JSON.stringify(clientdata));
     }
 }
 

@@ -33,9 +33,20 @@ wss.on('connection', function (ws) {
                 websockets[JSON.parse(message).id].websocket1.send(JSON.stringify(websockets[JSON.parse(message).id]));
             }
             else if (JSON.parse(message).isWhite === true) {
-                console.log("rick rocks");
                 websockets[JSON.parse(message).id].websocket2.send(JSON.stringify(websockets[JSON.parse(message).id]));
             }
+        }
+        if (JSON.parse(message).calledCheck === true) {
+            websockets[JSON.parse(message).id].gameState = "calledCheck";
+            websockets[JSON.parse(message).id].scalledCheck = true;
+            if (JSON.parse(message).isWhite === false) {
+                websockets[JSON.parse(message).id].websocket1.send(JSON.stringify(websockets[JSON.parse(message).id]));
+            }
+            else if (JSON.parse(message).isWhite === true) {
+                websockets[JSON.parse(message).id].websocket2.send(JSON.stringify(websockets[JSON.parse(message).id]));
+            }
+            websockets[JSON.parse(message).id].scalledCheck = false;
+            websockets[JSON.parse(message).id].gameState = JSON.parse(message).ContinueState;
         }
         else if (JSON.parse(message).gameOver === true) {
             websockets[JSON.parse(message).id].gameState = "Game Ended";
@@ -87,7 +98,7 @@ wss.on('connection', function (ws) {
 
     if (clientid % 2 === 0) {
         //generates a new game and sets the gamestate to waiting for players
-        websockets.push({ websocket1: ws, websocket2: null, playerWhite: clientid, playerBlack: null, id: gameid, gameState: "WAITING FOR PLAYERS", data: null, sWTurn: true, scalledCheckMate: false, scalledCheck: true, swinner: null});
+        websockets.push({ websocket1: ws, websocket2: null, playerWhite: clientid, playerBlack: null, id: gameid, gameState: "WAITING FOR PLAYERS", data: null, sWTurn: true, scalledCheckMate: false, scalledCheck: false, swinner: null});
         websockets[gameid].websocket1.send(JSON.stringify(websockets[gameid]));
         gameid++;
         clientid++;
