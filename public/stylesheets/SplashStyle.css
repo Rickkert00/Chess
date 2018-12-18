@@ -14,22 +14,26 @@ body{
 #center{
     position: relative;
     top: 50%;
-    transform: translateY(50%);
+    display: block;
+    align-content: center;
+}
+
+.groupbutton{
+    display: block;
+    padding: 0% 20%;
+
 }
 
 .button{
     position: relative;
     width: 400px;
-    transform: translateY(50%);
-    transform: translateX(50%);
+    display: inline-block;
 }
 
 .button2{
     position: relative;
     width: 400px;
-
-    transform: translateY(-40%);
-    transform: translateX(180%);
+    display: inline-block;
 }
 
 .play {
@@ -56,4 +60,28 @@ body{
     outline: none;
     -webkit-box-shadow: none;
     box-shadow: none;
+  }
+
+  #animation {
+    font-size: 60px;
+    position: relative;
+    -webkit-animation-name: chesspiece;
+    -webkit-animation-duration: 4s;
+    -webkit-animation-iteration-count: infinite;
+    animation-name: chesspiece;
+    animation-duration: 15s;
+    animation-iteration-count: infinite;
+    width: 70px;
+  }
+  
+  @-webkit-keyframes chesspiece {
+    0%   {left:0px; top:0px;}
+    50%   {left:75%; top:0px;}
+    100% {left:0%; top:0px;}
+  }
+  
+  @keyframes chesspiece {
+    0%   {left:0px; top:0px;}
+    50%   {left:75%; top:0px;}
+    100% {left:0%; top:0px;}
   }
