@@ -21,9 +21,9 @@
             <div class="button">
                     <p><input type="button" value="Play Now!" class="play" onclick="location.href='game.html';"></p>
                 </div>
-        
+
                 <div class="button2">
-                    <p><input type="submit" value="Statistics" class="play"></p>
+                    <p><input type="submit" value="Statistics" class="play" onclick="showStats()"></p>
                 </div>
         </section>
         <section id="blackbar"></section>
@@ -37,7 +37,7 @@
             <div class="text">You play this game by applying the basic chess rules</div>
         </section>
 
-        <section id="stats">
+        <div id="stats">
             <h2>Statistics </h2>
             <div class="text">Amount of live game(s): <%= liveGames %> <br>
                 Online players:<%if (onlinePlayers != 1) { %>
@@ -45,7 +45,7 @@
                  <%= onlinePlayers %> <br>
                 Total amount of games played: <%= totalGames %></div>
                 <div id="cookie"></div>
-        </section>
+                </div>
 
 
         <section id="right">

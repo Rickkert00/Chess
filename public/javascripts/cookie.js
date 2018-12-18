@@ -12,13 +12,13 @@ function setCookie(cname, cvalue) {
         c = c.substring(1);
       }
       if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
+        return c.substring(name.length, c.length);5
       }
     }
     return "";
   }
-var visits = function(){
 
+var visits = function(){
     var visits = getCookie("numofvisits");    
     if (!visits) { visits = 1;
     setCookie("numofvisits", visits);
@@ -33,5 +33,15 @@ var visits = function(){
     setCookie("numofvisits", visits);
 }
 }
+
+var showStats= function() {
+  var x = document.getElementById("stats");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+
 
 visits();
