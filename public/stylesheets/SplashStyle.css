@@ -35,9 +35,6 @@ body{
     width: 400px;
     display: inline-block;
 }
-.button:hover,.button2:hover {
-    border-width: 2px solid black;
-}
 
 .play {
     font-family: Arial, Helvetica, sans-serif; 
