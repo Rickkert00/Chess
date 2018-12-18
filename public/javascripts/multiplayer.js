@@ -41,6 +41,7 @@ var callCheck = function (iswhite) {
 
 //Helper function for Checkmate and GameOver
 var winRequest = function () {
+    alert("Wake Up!");
     var accept = confirm("Your Opponent Has Called CheckMate Do You Accept?");
     return accept;
 }

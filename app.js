@@ -6,7 +6,7 @@ var gameStatus = require("./gamestatus");
 //var game = require('./game');
 var port = process.argv[2];
 var app = express();
-
+var livegames = 0;
 
 
 app.use(express.static(__dirname + "/public"));
@@ -15,9 +15,11 @@ const wss = new websocket.Server({ server });
 var gameid = 0;
 var clientid = 0;
 
+app.set('view engine', 'ejs');
 //generate routes
 app.get("/", function (req, res) {
     res.sendFile("splash.html", { root: "./public" });
+    res.render('splash.ejs', { liveGames: livegames, totalGames: websockets.length, onlinePlayers: clientid });
 });
 
 var websockets = [];
@@ -57,16 +59,15 @@ wss.on('connection', function (ws) {
             else if (JSON.parse(message).isWhite === true) {
                 websockets[JSON.parse(message).id].websocket2.send(JSON.stringify(websockets[JSON.parse(message).id]));
             }
+            livegames--;
         }
          else if ((JSON.parse(message).calledCheckMate === false) && (websockets[JSON.parse(message).id].scalledCheckMate === true)) {
             websockets[JSON.parse(message).id].gameState = "deniedCheckMate";
             websockets[JSON.parse(message).id].scalledCheckMate = false;
             if (JSON.parse(message).isWhite === false) {
-                console.log("test");
                 websockets[JSON.parse(message).id].websocket1.send(JSON.stringify(websockets[JSON.parse(message).id]));
             }
             else if (JSON.parse(message).isWhite === true) {
-                console.log("test2");
                 websockets[JSON.parse(message).id].websocket2.send(JSON.stringify(websockets[JSON.parse(message).id]));
             }
             websockets[JSON.parse(message).id].gameState = JSON.parse(message).ContinueState;
@@ -102,7 +103,7 @@ wss.on('connection', function (ws) {
         websockets[gameid].websocket1.send(JSON.stringify(websockets[gameid]));
         gameid++;
         clientid++;
-
+        livegames++;
     }
     else {
         //pairs the 2nd player with the first so they are in the same game
