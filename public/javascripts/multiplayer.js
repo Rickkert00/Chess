@@ -1,7 +1,7 @@
 var isWhite = false;
 var turn = false;
 var WTurn = true;
-var socket = new WebSocket("ws://192.168.0.149:3001");
+var socket = new WebSocket("ws://localhost:3001");
 var gameid = null;
 var winner = null;
 var isCheck = false;
@@ -124,8 +124,6 @@ var processMove = function (event) {
         socket.send(JSON.stringify(clientdata));
     }
 }
-
-
 
 //Main Method 3
 callCheckMate();
