@@ -35,6 +35,7 @@ var visits = function(){
 }
 
 var showStats= function() {
+  console.log("test");  
   var x = document.getElementById("stats");
   if (x.style.display === "none") {
     x.style.display = "block";
@@ -45,3 +46,4 @@ var showStats= function() {
 
 
 visits();
+showStats();
