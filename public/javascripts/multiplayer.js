@@ -1,21 +1,25 @@
 var isWhite = false;
 var turn = false;
 var WTurn = true;
-var socket = new WebSocket("ws://localhost:3001");
+var socket = new WebSocket("ws://145.94.205.150:3001");
 var gameid = null;
 var winner = null;
 var isCheck = false;
 var isCheckMate = false;
 var isGameOver = false;
 var state;
+var isDisconnect = false;
 
-var gameover = function () {
+var gameover = function (isDisconnect) {
     alert("Game Has Ended \nCongratulations to: " + winner);
+    if(isDisconnect === false) {
     isGameOver = true;
     clientdata = { board: board, id: gameid, WTurn: WTurn, calledCheck: isCheck, calledCheckMate: isCheckMate, gameOver: isGameOver, winner: winner, isWhite: isWhite, ContinueState: state };
     socket.send(JSON.stringify(clientdata));
+    }
     window.location.href = "splash.html";
 }
+
 
 //Start of CheckMate Procedures
 var callCheckMate = function () {
@@ -51,6 +55,17 @@ socket.onmessage = function (event) {
 }
 
 var processMove = function (event) {
+    if (JSON.parse(event.data).gameState === "Player Disconnected") {
+        document.getElementById("topmiddle").innerHTML = JSON.parse(event.data).gameState;
+        if (isWhite) {
+            winner = "White";
+        }
+        else {
+            winner = "Black";
+        }
+        isDisconnect = true;
+        gameover(isDisconnect);
+    }
     if (JSON.parse(event.data).gameState === "WAITING FOR PLAYERS") {
         document.getElementById("topmiddle").innerHTML = JSON.parse(event.data).gameState;
         gameid = JSON.parse(event.data).id;

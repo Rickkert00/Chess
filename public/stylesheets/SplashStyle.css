@@ -35,6 +35,7 @@ main{
 .groupbutton{
     display: block;
     padding: 0% 20%;
+    align-content:center;
 
 }
 
